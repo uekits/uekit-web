@@ -1,0 +1,46 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://registry.uekit.com/web/v1/config.schema.json",
+    "title": "UEKit Web consumer configuration",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["style", "typescript", "registry", "aliases", "theme", "tailwind"],
+    "properties": {
+        "$schema": { "type": "string" },
+        "style": { "type": "string", "enum": ["default"] },
+        "typescript": { "const": true },
+        "registry": { "type": "string", "minLength": 1 },
+        "aliases": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["ui", "pro", "layouts", "blocks", "integrations", "lib", "styles"],
+            "properties": {
+                "ui": { "type": "string", "minLength": 1 },
+                "pro": { "type": "string", "minLength": 1 },
+                "layouts": { "type": "string", "minLength": 1 },
+                "blocks": { "type": "string", "minLength": 1 },
+                "integrations": { "type": "string", "minLength": 1 },
+                "lib": { "type": "string", "minLength": 1 },
+                "styles": { "type": "string", "minLength": 1 }
+            }
+        },
+        "theme": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["css"],
+            "properties": {
+                "css": { "type": "string", "minLength": 1 }
+            }
+        },
+        "tailwind": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["enabled", "version", "preflight"],
+            "properties": {
+                "enabled": { "const": true },
+                "version": { "const": 4 },
+                "preflight": { "const": false }
+            }
+        }
+    }
+}

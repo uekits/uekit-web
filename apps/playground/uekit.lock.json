@@ -1,0 +1,313 @@
+{
+  "lockfileVersion": 1,
+  "registry": "file:../registry-server/dist/web/v1",
+  "items": {
+    "theme": {
+      "version": "0.1.0",
+      "source": "file:../registry-server/dist/web/v1/items/theme/0.1.0.json",
+      "dependencies": [],
+      "devDependencies": [
+        "tailwindcss@^4.3.0",
+        "@tailwindcss/vite@^4.3.0"
+      ],
+      "files": [
+        {
+          "path": "src/styles/uekit.css",
+          "hash": "87040dbd43392419b2cf305698196b2fe65f01e7bb331484e2abc27f4dc74b7a",
+          "baseHash": "87040dbd43392419b2cf305698196b2fe65f01e7bb331484e2abc27f4dc74b7a"
+        }
+      ],
+      "installedAt": "2026-07-14T12:47:15.558Z"
+    },
+    "button": {
+      "version": "0.1.0",
+      "source": "file:../registry-server/dist/web/v1/items/button/0.1.0.json",
+      "dependencies": [
+        "element-plus@^2.14.0"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/button/Button.vue",
+          "hash": "b85e6fd768334e653cbab45904230431dd9c10d1b0c6f7d1a875d284ea65e782",
+          "baseHash": "b85e6fd768334e653cbab45904230431dd9c10d1b0c6f7d1a875d284ea65e782"
+        },
+        {
+          "path": "src/components/ui/button/index.ts",
+          "hash": "f26817176ee9b0daac57e3a70aa7f07064f5ab33ca2ad49b0aa77a6fdfb3d722",
+          "baseHash": "f26817176ee9b0daac57e3a70aa7f07064f5ab33ca2ad49b0aa77a6fdfb3d722"
+        },
+        {
+          "path": "src/components/ui/button/button-types.ts",
+          "hash": "d41ef1a58f9676db1af57a78c08afa672fe15a38c3369a5eae800dbf2d3b9b36",
+          "baseHash": "d41ef1a58f9676db1af57a78c08afa672fe15a38c3369a5eae800dbf2d3b9b36"
+        }
+      ],
+      "installedAt": "2026-07-14T12:47:15.564Z"
+    },
+    "avatar": {
+      "version": "0.1.0",
+      "source": "file:../registry-server/dist/web/v1/items/avatar/0.1.0.json",
+      "dependencies": [
+        "element-plus@^2.14.0"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/avatar/Avatar.vue",
+          "hash": "6ac0961609496cc98578a531922e0141a75f2cc10589edec389d60e2ed381f4b",
+          "baseHash": "6ac0961609496cc98578a531922e0141a75f2cc10589edec389d60e2ed381f4b"
+        },
+        {
+          "path": "src/components/ui/avatar/index.ts",
+          "hash": "4b068563a0aceb2730022e804fe1cf49ce89a5ea4b0770b27c18dc1d4c127a3e",
+          "baseHash": "4b068563a0aceb2730022e804fe1cf49ce89a5ea4b0770b27c18dc1d4c127a3e"
+        },
+        {
+          "path": "src/components/ui/avatar/avatar-types.ts",
+          "hash": "faa18e1004af2d45cc68a1564d4aa980cd32085c77a4033050a0f069e420b836",
+          "baseHash": "faa18e1004af2d45cc68a1564d4aa980cd32085c77a4033050a0f069e420b836"
+        }
+      ],
+      "installedAt": "2026-07-14T12:47:15.566Z"
+    },
+    "status-tag": {
+      "version": "0.1.0",
+      "source": "file:../registry-server/dist/web/v1/items/status-tag/0.1.0.json",
+      "dependencies": [],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/status-tag/StatusTag.vue",
+          "hash": "b043906732815a12f8a64f351bbd56c7889f3dd97ac5afb8df2b64b5fa0223bf",
+          "baseHash": "b043906732815a12f8a64f351bbd56c7889f3dd97ac5afb8df2b64b5fa0223bf"
+        },
+        {
+          "path": "src/components/ui/status-tag/status-types.ts",
+          "hash": "c61919ab0c724cfda796caabed6ddfe69d523a12d30f88b4d51de27ef4443049",
+          "baseHash": "c61919ab0c724cfda796caabed6ddfe69d523a12d30f88b4d51de27ef4443049"
+        },
+        {
+          "path": "src/components/ui/status-tag/index.ts",
+          "hash": "f16dcf5d2bc5c2abf699360c17d4d5d4ce652b1e4488709d5e33cf8ff0029343",
+          "baseHash": "f16dcf5d2bc5c2abf699360c17d4d5d4ce652b1e4488709d5e33cf8ff0029343"
+        }
+      ],
+      "installedAt": "2026-07-14T12:47:15.568Z"
+    },
+    "icon": {
+      "version": "0.1.0",
+      "source": "file:../registry-server/dist/web/v1/items/icon/0.1.0.json",
+      "dependencies": [
+        "@lucide/vue@^1.17.0"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/icon/Icon.vue",
+          "hash": "cfbf41647d6546c3137267cf2ea6cd4021f0f9a0fc6b715420da41e808e6d7df",
+          "baseHash": "cfbf41647d6546c3137267cf2ea6cd4021f0f9a0fc6b715420da41e808e6d7df"
+        },
+        {
+          "path": "src/components/ui/icon/index.ts",
+          "hash": "d1706a2cccb880a062251ed678e25455b6eb9928aa7733d52d4f6a825bba713b",
+          "baseHash": "d1706a2cccb880a062251ed678e25455b6eb9928aa7733d52d4f6a825bba713b"
+        },
+        {
+          "path": "src/components/ui/icon/icon-types.ts",
+          "hash": "04137419ed5211cb067b88d2fc02c9501e493d5fe74656cd410a473cdbfb9f85",
+          "baseHash": "04137419ed5211cb067b88d2fc02c9501e493d5fe74656cd410a473cdbfb9f85"
+        }
+      ],
+      "installedAt": "2026-07-14T12:47:15.563Z"
+    },
+    "search-panel": {
+      "version": "0.1.0",
+      "source": "file:../registry-server/dist/web/v1/items/search-panel/0.1.0.json",
+      "dependencies": [
+        "@lucide/vue@^1.17.0"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "src/components/pro/search-panel/SearchPanel.vue",
+          "hash": "8c09b28b5916465394a28ff6449200646f7a3c46ba15d4d8681265570cf253b3",
+          "baseHash": "8c09b28b5916465394a28ff6449200646f7a3c46ba15d4d8681265570cf253b3"
+        },
+        {
+          "path": "src/components/pro/search-panel/index.ts",
+          "hash": "9b76041bb4c2cd31830d248f990a1949776b6e6a060e57e7902a6c1692b2665d",
+          "baseHash": "9b76041bb4c2cd31830d248f990a1949776b6e6a060e57e7902a6c1692b2665d"
+        },
+        {
+          "path": "src/components/pro/search-panel/search-panel-types.ts",
+          "hash": "704773feb2106151f83da819cfb38e1b497bf5a308701b4f9baf07859897bd89",
+          "baseHash": "704773feb2106151f83da819cfb38e1b497bf5a308701b4f9baf07859897bd89"
+        }
+      ],
+      "installedAt": "2026-07-14T12:47:15.570Z"
+    },
+    "pro-table": {
+      "version": "0.1.0",
+      "source": "file:../registry-server/dist/web/v1/items/pro-table/0.1.0.json",
+      "dependencies": [
+        "@lucide/vue@^1.17.0",
+        "element-plus@^2.14.0"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "src/components/pro/pro-table/ProTable.vue",
+          "hash": "31c76bd32eb15574f552b0978f4b1e373061a5495706f2554d25ba22d2d2c6b3",
+          "baseHash": "31c76bd32eb15574f552b0978f4b1e373061a5495706f2554d25ba22d2d2c6b3"
+        },
+        {
+          "path": "src/components/pro/pro-table/table-types.ts",
+          "hash": "3386771c6aa3e0e74887653d272032b09f64323837434cda338fa086bb664888",
+          "baseHash": "3386771c6aa3e0e74887653d272032b09f64323837434cda338fa086bb664888"
+        },
+        {
+          "path": "src/components/pro/pro-table/index.ts",
+          "hash": "17af09321accb54f046fbe97917e6899c0ae57c84c9a5262c7395d1577d324b8",
+          "baseHash": "17af09321accb54f046fbe97917e6899c0ae57c84c9a5262c7395d1577d324b8"
+        }
+      ],
+      "installedAt": "2026-07-14T12:47:15.574Z"
+    },
+    "detail-drawer": {
+      "version": "0.1.0",
+      "source": "file:../registry-server/dist/web/v1/items/detail-drawer/0.1.0.json",
+      "dependencies": [
+        "@lucide/vue@^1.17.0",
+        "element-plus@^2.14.0"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "src/components/pro/detail-drawer/DetailDrawer.vue",
+          "hash": "9e0a87817260df2579640a54c121588223a6f81406cf7d659f26a1ffef8a4439",
+          "baseHash": "9e0a87817260df2579640a54c121588223a6f81406cf7d659f26a1ffef8a4439"
+        },
+        {
+          "path": "src/components/pro/detail-drawer/index.ts",
+          "hash": "624afcc0471edcb4eb21762d1ff1693f4053f814aa6f715c3130a1b8e1e7c229",
+          "baseHash": "624afcc0471edcb4eb21762d1ff1693f4053f814aa6f715c3130a1b8e1e7c229"
+        },
+        {
+          "path": "src/components/pro/detail-drawer/detail-drawer-types.ts",
+          "hash": "1331109ebe0a801d639d7e7a1cacbfe6d507260a6750e40762f9cd312dfdb65f",
+          "baseHash": "1331109ebe0a801d639d7e7a1cacbfe6d507260a6750e40762f9cd312dfdb65f"
+        }
+      ],
+      "installedAt": "2026-07-14T12:47:15.578Z"
+    },
+    "form-dialog": {
+      "version": "0.1.0",
+      "source": "file:../registry-server/dist/web/v1/items/form-dialog/0.1.0.json",
+      "dependencies": [
+        "@lucide/vue@^1.17.0",
+        "element-plus@^2.14.0"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "src/components/pro/form-dialog/FormDialog.vue",
+          "hash": "3319fad5e551aacd34f4315c482e860e8fe19b10eaed8785f8ff033c3ffdd2f0",
+          "baseHash": "3319fad5e551aacd34f4315c482e860e8fe19b10eaed8785f8ff033c3ffdd2f0"
+        },
+        {
+          "path": "src/components/pro/form-dialog/index.ts",
+          "hash": "df6194eb3d41b34b56a9a68bfae77594e0fd0e05b4f6ae7f2120a454b8584300",
+          "baseHash": "df6194eb3d41b34b56a9a68bfae77594e0fd0e05b4f6ae7f2120a454b8584300"
+        },
+        {
+          "path": "src/components/pro/form-dialog/form-dialog-types.ts",
+          "hash": "3e0f2192cc569de9de9d08ed10403d481c46e9a9d177865c393061369af8d5da",
+          "baseHash": "3e0f2192cc569de9de9d08ed10403d481c46e9a9d177865c393061369af8d5da"
+        }
+      ],
+      "installedAt": "2026-07-14T12:47:15.576Z"
+    },
+    "dashboard-layout": {
+      "version": "0.1.0",
+      "source": "file:../registry-server/dist/web/v1/items/dashboard-layout/0.1.0.json",
+      "dependencies": [],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "src/layouts/dashboard-layout/DashboardLayout.vue",
+          "hash": "3b58c8581845a77e3010f4fe8025e7de40b49e55de435d2a1a41bb3a7b74ed50",
+          "baseHash": "3b58c8581845a77e3010f4fe8025e7de40b49e55de435d2a1a41bb3a7b74ed50"
+        },
+        {
+          "path": "src/layouts/dashboard-layout/dashboard-layout-types.ts",
+          "hash": "a38b7d766bcadb089abbfdff7df5b21d900a5560c0948afc159b85d4fc457c0a",
+          "baseHash": "a38b7d766bcadb089abbfdff7df5b21d900a5560c0948afc159b85d4fc457c0a"
+        },
+        {
+          "path": "src/layouts/dashboard-layout/index.ts",
+          "hash": "d923f15f4bc5397484f490fb485c61d575343f6bcd8775a2950249df49336c01",
+          "baseHash": "d923f15f4bc5397484f490fb485c61d575343f6bcd8775a2950249df49336c01"
+        }
+      ],
+      "installedAt": "2026-07-14T12:47:15.575Z"
+    },
+    "map-amap": {
+      "version": "0.1.0",
+      "source": "file:../registry-server/dist/web/v1/items/map-amap/0.1.0.json",
+      "dependencies": [
+        "@amap/amap-jsapi-loader@^1.0.1"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "src/integrations/map-amap/MapAmap.vue",
+          "hash": "dbc6fff57b6eddeeec0e92402cecc87c0460cfe93037c4e519326966bfe91bfd",
+          "baseHash": "dbc6fff57b6eddeeec0e92402cecc87c0460cfe93037c4e519326966bfe91bfd"
+        },
+        {
+          "path": "src/integrations/map-amap/amap.d.ts",
+          "hash": "9f44436e1ef5c32b05a843284de9b3c53d5f4cfa45e35709e093cb0932f8980d",
+          "baseHash": "9f44436e1ef5c32b05a843284de9b3c53d5f4cfa45e35709e093cb0932f8980d"
+        },
+        {
+          "path": "src/integrations/map-amap/map-amap-types.ts",
+          "hash": "9a98aa132dafb97f473af0074dafdc6f50f31199fe128d4bd7ca104959be4b39",
+          "baseHash": "9a98aa132dafb97f473af0074dafdc6f50f31199fe128d4bd7ca104959be4b39"
+        },
+        {
+          "path": "src/integrations/map-amap/index.ts",
+          "hash": "357a41bb70e244b22d10235cf5ee4896aa38b6e1104316886cb6f6cf78641aeb",
+          "baseHash": "357a41bb70e244b22d10235cf5ee4896aa38b6e1104316886cb6f6cf78641aeb"
+        }
+      ],
+      "installedAt": "2026-07-14T12:47:15.579Z"
+    },
+    "charts-echarts": {
+      "version": "0.1.0",
+      "source": "file:../registry-server/dist/web/v1/items/charts-echarts/0.1.0.json",
+      "dependencies": [
+        "echarts@^6.1.0"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "src/integrations/charts-echarts/ChartEcharts.vue",
+          "hash": "5c8d77188e8dd5c689942bbd267ebf1a60511e53f724525302c2c15020e2651c",
+          "baseHash": "5c8d77188e8dd5c689942bbd267ebf1a60511e53f724525302c2c15020e2651c"
+        },
+        {
+          "path": "src/integrations/charts-echarts/chart-echarts-types.ts",
+          "hash": "1ff2461536ffd56ccaa679410c7a7c6cfb7f66612d1d637e5eb5fe2a44a257f9",
+          "baseHash": "1ff2461536ffd56ccaa679410c7a7c6cfb7f66612d1d637e5eb5fe2a44a257f9"
+        },
+        {
+          "path": "src/integrations/charts-echarts/index.ts",
+          "hash": "49bf3c3994a881a6f4ba272d2909e302b589e3f179af1326b4b1a32b2027e335",
+          "baseHash": "49bf3c3994a881a6f4ba272d2909e302b589e3f179af1326b4b1a32b2027e335"
+        }
+      ],
+      "installedAt": "2026-07-14T12:47:15.579Z"
+    }
+  }
+}

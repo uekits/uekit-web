@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+corepack pnpm security:check && corepack pnpm lint-staged

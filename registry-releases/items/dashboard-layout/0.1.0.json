@@ -1,0 +1,35 @@
+{
+  "name": "dashboard-layout",
+  "type": "registry:layout",
+  "version": "0.1.0",
+  "url": "items/dashboard-layout/0.1.0.json",
+  "description": "Responsive enterprise dashboard shell.",
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "registry/layouts/dashboard-layout/DashboardLayout.vue",
+      "target": "{layouts}/dashboard-layout/DashboardLayout.vue",
+      "content": "<!--\n    两栏企业后台页面骨架。\n\n    组件只负责 Header、Sidebar 与主内容区布局；导航状态和移动端菜单由消费方持有。\n-->\n<template>\n    <div\n        class=\"ue-dashboard-layout grid min-h-screen bg-page text-foreground\"\n        :class=\"{ 'is-collapsed': collapsed }\"\n        :style=\"{ '--ue-dashboard-sidebar-width': sidebarWidth }\"\n    >\n        <header class=\"ue-dashboard-layout__header z-[2] border-b border-border bg-surface\">\n            <slot name=\"header\" />\n        </header>\n        <aside\n            class=\"ue-dashboard-layout__sidebar overflow-auto border-r border-border bg-surface max-[900px]:hidden\"\n        >\n            <slot name=\"sidebar\" />\n        </aside>\n        <main class=\"ue-dashboard-layout__main min-w-0 overflow-auto\"><slot /></main>\n    </div>\n</template>\n\n<script setup lang=\"ts\">\nimport type { DashboardLayoutProps, DashboardLayoutSlots } from './dashboard-layout-types';\n\nwithDefaults(defineProps<DashboardLayoutProps>(), {\n    sidebarWidth: '240px',\n    collapsed: false,\n});\ndefineSlots<DashboardLayoutSlots>();\n</script>\n\n<style scoped>\n.ue-dashboard-layout {\n    grid-template:\n        'header header' 56px\n        'sidebar main' minmax(0, 1fr) / var(--ue-dashboard-sidebar-width) minmax(0, 1fr);\n}\n\n.ue-dashboard-layout.is-collapsed {\n    --ue-dashboard-sidebar-width: 64px !important;\n}\n\n.ue-dashboard-layout__header {\n    grid-area: header;\n}\n\n.ue-dashboard-layout__sidebar {\n    grid-area: sidebar;\n}\n\n.ue-dashboard-layout__main {\n    grid-area: main;\n}\n\n@media (width <= 900px) {\n    .ue-dashboard-layout {\n        grid-template:\n            'header' 56px\n            'main' minmax(0, 1fr) / minmax(0, 1fr);\n    }\n}\n</style>\n",
+      "hash": "3b58c8581845a77e3010f4fe8025e7de40b49e55de435d2a1a41bb3a7b74ed50"
+    },
+    {
+      "path": "registry/layouts/dashboard-layout/dashboard-layout-types.ts",
+      "target": "{layouts}/dashboard-layout/dashboard-layout-types.ts",
+      "content": "/**\n * DashboardLayout 的公开 Props 与 Slots 契约。\n */\n\n/** DashboardLayout 公开属性。 */\nexport interface DashboardLayoutProps {\n    sidebarWidth?: string;\n    collapsed?: boolean;\n}\n\n/** DashboardLayout 公开插槽。 */\nexport interface DashboardLayoutSlots {\n    header?: () => unknown;\n    sidebar?: () => unknown;\n    default?: () => unknown;\n}\n",
+      "hash": "a38b7d766bcadb089abbfdff7df5b21d900a5560c0948afc159b85d4fc457c0a"
+    },
+    {
+      "path": "registry/layouts/dashboard-layout/index.ts",
+      "target": "{layouts}/dashboard-layout/index.ts",
+      "content": "/** UEKit 后台布局组件公开入口。 */\n\nexport { default as DashboardLayout } from './DashboardLayout.vue';\nexport type { DashboardLayoutProps, DashboardLayoutSlots } from './dashboard-layout-types';\n",
+      "hash": "d923f15f4bc5397484f490fb485c61d575343f6bcd8775a2950249df49336c01"
+    }
+  ],
+  "compatibility": {
+    "node": ">=20.19.0",
+    "vue": ">=3.5.0",
+    "element-plus": ">=2.14.0 <3"
+  }
+}

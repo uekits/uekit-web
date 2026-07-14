@@ -1,0 +1,57 @@
+{
+    "name": "@uekits/web",
+    "version": "0.1.0",
+    "description": "Registry CLI for installing UEKit Web source into Vue applications.",
+    "type": "module",
+    "license": "MIT",
+    "keywords": [
+        "uekit",
+        "vue",
+        "element-plus",
+        "registry",
+        "cli",
+        "admin"
+    ],
+    "homepage": "https://uekit.com",
+    "bugs": {
+        "url": "https://github.com/uekits/uekit-web/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/uekits/uekit-web.git",
+        "directory": "packages/cli"
+    },
+    "bin": {
+        "uekit-web": "dist/index.js"
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "node ../../scripts/clean-cli-dist.mjs && tsc -p tsconfig.json",
+        "prepack": "pnpm build",
+        "prepublishOnly": "node ../../scripts/check-secure-environment.mjs",
+        "typecheck": "tsc --noEmit -p tsconfig.json",
+        "test": "vitest run --root ../.. packages/cli/tests"
+    },
+    "dependencies": {
+        "commander": "^14.0.3",
+        "npm-package-arg": "^12.0.2",
+        "semver": "^7.7.3"
+    },
+    "devDependencies": {
+        "@types/node": "^22.0.0",
+        "@types/npm-package-arg": "^6.1.4",
+        "@types/semver": "^7.7.1",
+        "typescript": "^6.0.3"
+    },
+    "engines": {
+        "node": ">=20.19.0"
+    },
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    }
+}

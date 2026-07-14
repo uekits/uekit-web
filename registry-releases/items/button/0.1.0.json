@@ -1,0 +1,38 @@
+{
+  "name": "button",
+  "type": "registry:ui",
+  "version": "0.1.0",
+  "url": "items/button/0.1.0.json",
+  "description": "UEKit button adapter backed by Element Plus.",
+  "dependencies": [
+    "element-plus@^2.14.0"
+  ],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/button/Button.vue",
+      "target": "{ui}/button/Button.vue",
+      "content": "<!--\n    UEKit 基础按钮外壳。\n\n    保留 Element Plus 的交互语义和属性透传，仅统一常用类型、默认值与视觉基线。\n-->\n<template>\n    <ElButton\n        class=\"ue-button font-medium\"\n        :type=\"type\"\n        :size=\"size\"\n        :native-type=\"nativeType\"\n        :loading=\"loading\"\n        :disabled=\"disabled\"\n        :plain=\"plain\"\n        :text=\"text\"\n        :link=\"link\"\n    >\n        <slot />\n    </ElButton>\n</template>\n\n<script setup lang=\"ts\">\nimport { ElButton } from 'element-plus';\nimport 'element-plus/es/components/button/style/css';\nimport type { ButtonProps, ButtonSlots } from './button-types';\n\nwithDefaults(defineProps<ButtonProps>(), {\n    type: 'default',\n    size: 'default',\n    nativeType: 'button',\n    loading: false,\n    disabled: false,\n    plain: false,\n    text: false,\n    link: false,\n});\ndefineSlots<ButtonSlots>();\n</script>\n",
+      "hash": "b85e6fd768334e653cbab45904230431dd9c10d1b0c6f7d1a875d284ea65e782"
+    },
+    {
+      "path": "registry/ui/button/button-types.ts",
+      "target": "{ui}/button/button-types.ts",
+      "content": "/**\n * Button 的公开 Props 与 Slots 契约。\n */\n\nimport type { ButtonHTMLAttributes } from 'vue';\n\n/** Button 公开属性。 */\nexport interface ButtonProps {\n    type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'default';\n    size?: 'large' | 'default' | 'small';\n    nativeType?: ButtonHTMLAttributes['type'];\n    loading?: boolean;\n    disabled?: boolean;\n    plain?: boolean;\n    text?: boolean;\n    link?: boolean;\n}\n\n/** Button 公开插槽。 */\nexport interface ButtonSlots {\n    default?: () => unknown;\n}\n",
+      "hash": "d41ef1a58f9676db1af57a78c08afa672fe15a38c3369a5eae800dbf2d3b9b36"
+    },
+    {
+      "path": "registry/ui/button/index.ts",
+      "target": "{ui}/button/index.ts",
+      "content": "/** UEKit 按钮组件公开入口。 */\n\nexport { default as Button } from './Button.vue';\nexport type { ButtonProps, ButtonSlots } from './button-types';\n",
+      "hash": "f26817176ee9b0daac57e3a70aa7f07064f5ab33ca2ad49b0aa77a6fdfb3d722"
+    }
+  ],
+  "compatibility": {
+    "node": ">=20.19.0",
+    "vue": ">=3.5.0",
+    "element-plus": ">=2.14.0 <3"
+  }
+}

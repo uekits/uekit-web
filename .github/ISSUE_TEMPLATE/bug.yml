@@ -1,0 +1,48 @@
+name: Bug report
+description: 报告可复现的 UEKit 缺陷
+title: '[Bug]: '
+labels: [bug]
+body:
+    - type: markdown
+      attributes:
+          value: 安全漏洞请改用 Private vulnerability reporting，不要公开提交。
+    - type: input
+      id: version
+      attributes:
+          label: UEKit 版本
+          placeholder: '@uekits/web 0.1.0 / Registry item 0.1.0'
+      validations:
+          required: true
+    - type: input
+      id: environment
+      attributes:
+          label: 环境
+          placeholder: 'Node、包管理器、Vue、Element Plus、操作系统和浏览器版本'
+      validations:
+          required: true
+    - type: textarea
+      id: reproduction
+      attributes:
+          label: 最小复现与步骤
+          description: 提供公开仓库或可直接运行的最小代码，删除敏感信息。
+      validations:
+          required: true
+    - type: textarea
+      id: expected
+      attributes:
+          label: 期望行为
+      validations:
+          required: true
+    - type: textarea
+      id: actual
+      attributes:
+          label: 实际行为和日志
+      validations:
+          required: true
+    - type: checkboxes
+      id: checks
+      attributes:
+          label: 提交确认
+          options:
+              - label: 我已检索现有 Issue，并确认这不是安全漏洞。
+                required: true

@@ -1,0 +1,23 @@
+{
+    "$schema": "https://registry.uekit.com/web/v1/config.schema.json",
+    "style": "default",
+    "typescript": true,
+    "registry": "https://registry.uekit.com/web/v1",
+    "aliases": {
+        "ui": "src/components/ui",
+        "pro": "src/components/pro",
+        "layouts": "src/layouts",
+        "blocks": "src/blocks",
+        "integrations": "src/integrations",
+        "lib": "src/lib/uekit",
+        "styles": "src/styles"
+    },
+    "theme": {
+        "css": "src/styles/uekit.css"
+    },
+    "tailwind": {
+        "enabled": true,
+        "version": 4,
+        "preflight": false
+    }
+}

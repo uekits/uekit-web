@@ -1,0 +1,25 @@
+name: Feature request
+description: 提议适用于开源用户的通用能力
+title: '[Feature]: '
+labels: [enhancement]
+body:
+    - type: textarea
+      id: problem
+      attributes:
+          label: 问题与使用场景
+          description: 说明用户问题，不要只描述期望实现。
+      validations:
+          required: true
+    - type: textarea
+      id: proposal
+      attributes:
+          label: 建议方案
+          description: 说明 API、兼容性、替代方案和潜在风险。
+      validations:
+          required: true
+    - type: textarea
+      id: alternatives
+      attributes:
+          label: 已考虑的替代方案
+      validations:
+          required: true

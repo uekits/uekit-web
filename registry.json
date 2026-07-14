@@ -1,0 +1,255 @@
+{
+    "$schema": "./registry.schema.json",
+    "schemaVersion": 1,
+    "name": "uekit-web",
+    "homepage": "https://uekit.com",
+    "compatibility": {
+        "node": ">=20.19.0",
+        "vue": ">=3.5.0",
+        "element-plus": ">=2.14.0 <3"
+    },
+    "items": [
+        {
+            "name": "theme",
+            "type": "registry:foundation",
+            "version": "0.1.0",
+            "url": "items/theme/0.1.0.json",
+            "description": "UEKit semantic tokens, Tailwind theme and Element Plus variable mapping.",
+            "devDependencies": ["tailwindcss@^4.3.0", "@tailwindcss/vite@^4.3.0"],
+            "files": [
+                { "path": "registry/foundation/theme/uekit.css", "target": "{styles}/uekit.css" }
+            ]
+        },
+        {
+            "name": "icon",
+            "type": "registry:foundation",
+            "version": "0.1.0",
+            "url": "items/icon/0.1.0.json",
+            "description": "Accessible Lucide icon renderer.",
+            "dependencies": ["@lucide/vue@^1.17.0"],
+            "registryDependencies": ["theme"],
+            "files": [
+                { "path": "registry/foundation/icon/Icon.vue", "target": "{ui}/icon/Icon.vue" },
+                {
+                    "path": "registry/foundation/icon/icon-types.ts",
+                    "target": "{ui}/icon/icon-types.ts"
+                },
+                { "path": "registry/foundation/icon/index.ts", "target": "{ui}/icon/index.ts" }
+            ]
+        },
+        {
+            "name": "button",
+            "type": "registry:ui",
+            "version": "0.1.0",
+            "url": "items/button/0.1.0.json",
+            "description": "UEKit button adapter backed by Element Plus.",
+            "dependencies": ["element-plus@^2.14.0"],
+            "registryDependencies": ["theme"],
+            "files": [
+                { "path": "registry/ui/button/Button.vue", "target": "{ui}/button/Button.vue" },
+                {
+                    "path": "registry/ui/button/button-types.ts",
+                    "target": "{ui}/button/button-types.ts"
+                },
+                { "path": "registry/ui/button/index.ts", "target": "{ui}/button/index.ts" }
+            ]
+        },
+        {
+            "name": "avatar",
+            "type": "registry:ui",
+            "version": "0.1.0",
+            "url": "items/avatar/0.1.0.json",
+            "description": "User avatar with image failure fallback.",
+            "dependencies": ["element-plus@^2.14.0"],
+            "registryDependencies": ["theme"],
+            "files": [
+                { "path": "registry/ui/avatar/Avatar.vue", "target": "{ui}/avatar/Avatar.vue" },
+                {
+                    "path": "registry/ui/avatar/avatar-types.ts",
+                    "target": "{ui}/avatar/avatar-types.ts"
+                },
+                { "path": "registry/ui/avatar/index.ts", "target": "{ui}/avatar/index.ts" }
+            ]
+        },
+        {
+            "name": "status-tag",
+            "type": "registry:ui",
+            "version": "0.1.0",
+            "url": "items/status-tag/0.1.0.json",
+            "description": "Semantic status indicator.",
+            "registryDependencies": ["theme"],
+            "files": [
+                {
+                    "path": "registry/ui/status-tag/StatusTag.vue",
+                    "target": "{ui}/status-tag/StatusTag.vue"
+                },
+                {
+                    "path": "registry/ui/status-tag/status-types.ts",
+                    "target": "{ui}/status-tag/status-types.ts"
+                },
+                { "path": "registry/ui/status-tag/index.ts", "target": "{ui}/status-tag/index.ts" }
+            ]
+        },
+        {
+            "name": "search-panel",
+            "type": "registry:pro",
+            "version": "0.1.0",
+            "url": "items/search-panel/0.1.0.json",
+            "description": "Enterprise search and filter panel.",
+            "dependencies": ["@lucide/vue@^1.17.0"],
+            "registryDependencies": ["theme", "icon"],
+            "files": [
+                {
+                    "path": "registry/pro/search-panel/SearchPanel.vue",
+                    "target": "{pro}/search-panel/SearchPanel.vue"
+                },
+                {
+                    "path": "registry/pro/search-panel/search-panel-types.ts",
+                    "target": "{pro}/search-panel/search-panel-types.ts"
+                },
+                {
+                    "path": "registry/pro/search-panel/index.ts",
+                    "target": "{pro}/search-panel/index.ts"
+                }
+            ]
+        },
+        {
+            "name": "pro-table",
+            "type": "registry:pro",
+            "version": "0.1.0",
+            "url": "items/pro-table/0.1.0.json",
+            "description": "Table shell with toolbar, loading, pagination and slots.",
+            "dependencies": ["@lucide/vue@^1.17.0", "element-plus@^2.14.0"],
+            "registryDependencies": ["theme", "icon"],
+            "files": [
+                {
+                    "path": "registry/pro/pro-table/ProTable.vue",
+                    "target": "{pro}/pro-table/ProTable.vue"
+                },
+                {
+                    "path": "registry/pro/pro-table/table-types.ts",
+                    "target": "{pro}/pro-table/table-types.ts"
+                },
+                { "path": "registry/pro/pro-table/index.ts", "target": "{pro}/pro-table/index.ts" }
+            ]
+        },
+        {
+            "name": "detail-drawer",
+            "type": "registry:pro",
+            "version": "0.1.0",
+            "url": "items/detail-drawer/0.1.0.json",
+            "description": "Consistent enterprise detail drawer shell.",
+            "dependencies": ["@lucide/vue@^1.17.0", "element-plus@^2.14.0"],
+            "registryDependencies": ["theme", "icon"],
+            "files": [
+                {
+                    "path": "registry/pro/detail-drawer/DetailDrawer.vue",
+                    "target": "{pro}/detail-drawer/DetailDrawer.vue"
+                },
+                {
+                    "path": "registry/pro/detail-drawer/detail-drawer-types.ts",
+                    "target": "{pro}/detail-drawer/detail-drawer-types.ts"
+                },
+                {
+                    "path": "registry/pro/detail-drawer/index.ts",
+                    "target": "{pro}/detail-drawer/index.ts"
+                }
+            ]
+        },
+        {
+            "name": "form-dialog",
+            "type": "registry:pro",
+            "version": "0.1.0",
+            "url": "items/form-dialog/0.1.0.json",
+            "description": "Resizable form dialog shell with full-screen mode.",
+            "dependencies": ["@lucide/vue@^1.17.0", "element-plus@^2.14.0"],
+            "registryDependencies": ["theme", "icon"],
+            "files": [
+                {
+                    "path": "registry/pro/form-dialog/FormDialog.vue",
+                    "target": "{pro}/form-dialog/FormDialog.vue"
+                },
+                {
+                    "path": "registry/pro/form-dialog/form-dialog-types.ts",
+                    "target": "{pro}/form-dialog/form-dialog-types.ts"
+                },
+                {
+                    "path": "registry/pro/form-dialog/index.ts",
+                    "target": "{pro}/form-dialog/index.ts"
+                }
+            ]
+        },
+        {
+            "name": "dashboard-layout",
+            "type": "registry:layout",
+            "version": "0.1.0",
+            "url": "items/dashboard-layout/0.1.0.json",
+            "description": "Responsive enterprise dashboard shell.",
+            "registryDependencies": ["theme"],
+            "files": [
+                {
+                    "path": "registry/layouts/dashboard-layout/DashboardLayout.vue",
+                    "target": "{layouts}/dashboard-layout/DashboardLayout.vue"
+                },
+                {
+                    "path": "registry/layouts/dashboard-layout/dashboard-layout-types.ts",
+                    "target": "{layouts}/dashboard-layout/dashboard-layout-types.ts"
+                },
+                {
+                    "path": "registry/layouts/dashboard-layout/index.ts",
+                    "target": "{layouts}/dashboard-layout/index.ts"
+                }
+            ]
+        },
+        {
+            "name": "map-amap",
+            "type": "registry:integration",
+            "version": "0.1.0",
+            "url": "items/map-amap/0.1.0.json",
+            "description": "AMap JS API lifecycle adapter.",
+            "dependencies": ["@amap/amap-jsapi-loader@^1.0.1"],
+            "registryDependencies": ["theme"],
+            "files": [
+                {
+                    "path": "registry/integrations/map-amap/MapAmap.vue",
+                    "target": "{integrations}/map-amap/MapAmap.vue"
+                },
+                {
+                    "path": "registry/integrations/map-amap/amap.d.ts",
+                    "target": "{integrations}/map-amap/amap.d.ts"
+                },
+                {
+                    "path": "registry/integrations/map-amap/map-amap-types.ts",
+                    "target": "{integrations}/map-amap/map-amap-types.ts"
+                },
+                {
+                    "path": "registry/integrations/map-amap/index.ts",
+                    "target": "{integrations}/map-amap/index.ts"
+                }
+            ]
+        },
+        {
+            "name": "charts-echarts",
+            "type": "registry:integration",
+            "version": "0.1.0",
+            "url": "items/charts-echarts/0.1.0.json",
+            "description": "ECharts lifecycle and responsive resize adapter.",
+            "dependencies": ["echarts@^6.1.0"],
+            "registryDependencies": ["theme"],
+            "files": [
+                {
+                    "path": "registry/integrations/charts-echarts/ChartEcharts.vue",
+                    "target": "{integrations}/charts-echarts/ChartEcharts.vue"
+                },
+                {
+                    "path": "registry/integrations/charts-echarts/chart-echarts-types.ts",
+                    "target": "{integrations}/charts-echarts/chart-echarts-types.ts"
+                },
+                {
+                    "path": "registry/integrations/charts-echarts/index.ts",
+                    "target": "{integrations}/charts-echarts/index.ts"
+                }
+            ]
+        }
+    ]
+}

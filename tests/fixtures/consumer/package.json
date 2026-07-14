@@ -1,0 +1,19 @@
+{
+    "name": "uekit-web-consumer-smoke",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vue-tsc --noEmit -p tsconfig.json && vite build"
+    },
+    "dependencies": {
+        "vue": "^3.5.34"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^6.0.7",
+        "@types/node": "^22.0.0",
+        "typescript": "^6.0.3",
+        "vite": "^8.0.14",
+        "vue-tsc": "^3.3.1"
+    }
+}

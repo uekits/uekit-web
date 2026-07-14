@@ -1,0 +1,38 @@
+{
+  "name": "icon",
+  "type": "registry:foundation",
+  "version": "0.1.0",
+  "url": "items/icon/0.1.0.json",
+  "description": "Accessible Lucide icon renderer.",
+  "dependencies": [
+    "@lucide/vue@^1.17.0"
+  ],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "registry/foundation/icon/Icon.vue",
+      "target": "{ui}/icon/Icon.vue",
+      "content": "<!--\n    UEKit 图标渲染与无障碍外壳。\n\n    图标未提供标签时作为装饰内容隐藏，旋转动画遵循用户的减少动态效果偏好。\n-->\n<template>\n    <span\n        class=\"ue-icon inline-flex shrink-0 items-center justify-center align-middle leading-none\"\n        :class=\"{ 'is-spinning': spin }\"\n        :aria-hidden=\"label ? undefined : 'true'\"\n        :aria-label=\"label\"\n        :role=\"label ? 'img' : undefined\"\n    >\n        <component\n            :is=\"icon\"\n            :size=\"size\"\n            :stroke-width=\"strokeWidth\"\n        />\n    </span>\n</template>\n\n<script setup lang=\"ts\">\nimport type { IconProps } from './icon-types';\n\nwithDefaults(defineProps<IconProps>(), {\n    label: undefined,\n    size: 16,\n    strokeWidth: 1.9,\n    spin: false,\n});\n</script>\n\n<style scoped>\n.ue-icon {\n    &.is-spinning {\n        animation: ue-icon-spin 0.9s linear infinite;\n    }\n}\n\n@keyframes ue-icon-spin {\n    to {\n        transform: rotate(360deg);\n    }\n}\n\n@media (prefers-reduced-motion: reduce) {\n    .ue-icon.is-spinning {\n        animation-duration: 1.8s;\n    }\n}\n</style>\n",
+      "hash": "cfbf41647d6546c3137267cf2ea6cd4021f0f9a0fc6b715420da41e808e6d7df"
+    },
+    {
+      "path": "registry/foundation/icon/icon-types.ts",
+      "target": "{ui}/icon/icon-types.ts",
+      "content": "/**\n * Icon 的公开 Props 契约。\n */\n\nimport type { Component } from 'vue';\n\n/** Icon 公开属性。 */\nexport interface IconProps {\n    /** 要渲染的 Vue 图标组件。 */\n    icon: Component;\n    /** 图标含独立语义时提供；省略时图标对辅助技术隐藏。 */\n    label?: string;\n    size?: number | string;\n    strokeWidth?: number;\n    spin?: boolean;\n}\n",
+      "hash": "04137419ed5211cb067b88d2fc02c9501e493d5fe74656cd410a473cdbfb9f85"
+    },
+    {
+      "path": "registry/foundation/icon/index.ts",
+      "target": "{ui}/icon/index.ts",
+      "content": "/** UEKit 图标组件公开入口。 */\n\nexport { default as Icon } from './Icon.vue';\nexport type { IconProps } from './icon-types';\n",
+      "hash": "d1706a2cccb880a062251ed678e25455b6eb9928aa7733d52d4f6a825bba713b"
+    }
+  ],
+  "compatibility": {
+    "node": ">=20.19.0",
+    "vue": ">=3.5.0",
+    "element-plus": ">=2.14.0 <3"
+  }
+}

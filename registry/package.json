@@ -1,0 +1,17 @@
+{
+    "name": "@uekits/web-registry-source",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "license": "MIT",
+    "scripts": {
+        "typecheck": "vue-tsc --noEmit -p tsconfig.json"
+    },
+    "devDependencies": {
+        "@amap/amap-jsapi-loader": "catalog:",
+        "@lucide/vue": "catalog:",
+        "echarts": "catalog:",
+        "element-plus": "catalog:",
+        "vue": "catalog:"
+    }
+}
