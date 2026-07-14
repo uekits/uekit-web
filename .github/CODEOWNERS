@@ -1,0 +1,7 @@
+# 默认由当前仓库维护者评审；创建组织维护团队后可改为团队所有者。
+* @uekit-dev
+
+/.github/ @uekit-dev
+/packages/cli/ @uekit-dev
+/registry/ @uekit-dev
+/registry-releases/ @uekit-dev

@@ -1,0 +1,40 @@
+{
+  "name": "detail-drawer",
+  "type": "registry:pro",
+  "version": "0.1.0",
+  "url": "items/detail-drawer/0.1.0.json",
+  "description": "Consistent enterprise detail drawer shell.",
+  "dependencies": [
+    "@lucide/vue@^1.17.0",
+    "element-plus@^2.14.0"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon"
+  ],
+  "files": [
+    {
+      "path": "registry/pro/detail-drawer/DetailDrawer.vue",
+      "target": "{pro}/detail-drawer/DetailDrawer.vue",
+      "content": "<!--\n    只读详情场景的抽屉容器。\n\n    可见性由消费方通过 v-model 持有；组件只发出确认、取消与可见性变更事件。\n-->\n<template>\n    <ElDrawer\n        class=\"ue-detail-drawer\"\n        :model-value=\"modelValue\"\n        :size=\"width\"\n        append-to-body\n        destroy-on-close\n        @update:model-value=\"(visible: boolean) => emit('update:modelValue', visible)\"\n        @close=\"handleClosed\"\n    >\n        <template #header>\n            <div class=\"ue-detail-drawer__heading min-w-0\">\n                <strong class=\"block text-lg font-semibold\">{{ title }}</strong>\n                <p\n                    v-if=\"description\"\n                    class=\"mt-[5px] block text-sm text-muted-foreground\"\n                >\n                    {{ description }}\n                </p>\n            </div>\n        </template>\n        <div class=\"ue-detail-drawer__body min-h-full\">\n            <div\n                v-if=\"loading\"\n                class=\"ue-detail-drawer__loading grid min-h-60 place-items-center text-primary\"\n            >\n                <Icon\n                    :icon=\"LoaderCircle\"\n                    spin\n                    :size=\"22\"\n                />\n            </div>\n            <slot v-else />\n        </div>\n        <template\n            v-if=\"showFooter\"\n            #footer\n        >\n            <slot name=\"footer\">\n                <ElButton @click=\"close\">{{ cancelText }}</ElButton>\n                <ElButton\n                    type=\"primary\"\n                    @click=\"emit('confirm')\"\n                    >{{ confirmText }}</ElButton\n                >\n            </slot>\n        </template>\n    </ElDrawer>\n</template>\n\n<script setup lang=\"ts\">\nimport { LoaderCircle } from '@lucide/vue';\nimport { Icon } from '@/components/ui/icon';\nimport { ElButton, ElDrawer } from 'element-plus';\nimport 'element-plus/es/components/button/style/css';\nimport 'element-plus/es/components/drawer/style/css';\nimport type {\n    DetailDrawerEmits,\n    DetailDrawerProps,\n    DetailDrawerSlots,\n} from './detail-drawer-types';\n\nwithDefaults(defineProps<DetailDrawerProps>(), {\n    description: '',\n    width: 'var(--ue-drawer-width)',\n    loading: false,\n    confirmText: '确定',\n    cancelText: '取消',\n    showFooter: true,\n});\n\nconst emit = defineEmits<DetailDrawerEmits>();\ndefineSlots<DetailDrawerSlots>();\n\nfunction close(): void {\n    emit('update:modelValue', false);\n}\n\nfunction handleClosed(): void {\n    emit('cancel');\n}\n</script>\n\n<style>\n.ue-detail-drawer.el-drawer,\n.ue-detail-drawer .el-drawer {\n    color: var(--ue-color-text-primary);\n    background: var(--ue-color-page);\n}\n\n.ue-detail-drawer .el-drawer__header {\n    min-height: 72px;\n    padding: var(--ue-spacing-lg) var(--ue-spacing-xl);\n    margin: 0;\n    background: var(--ue-color-surface);\n    border-bottom: 1px solid var(--ue-color-border-subtle);\n}\n\n.ue-detail-drawer .el-drawer__body {\n    padding: 0;\n}\n\n.ue-detail-drawer .el-drawer__footer {\n    padding: var(--ue-spacing-md) var(--ue-spacing-xl);\n    background: var(--ue-color-surface);\n    border-top: 1px solid var(--ue-color-border-subtle);\n}\n</style>\n",
+      "hash": "9e0a87817260df2579640a54c121588223a6f81406cf7d659f26a1ffef8a4439"
+    },
+    {
+      "path": "registry/pro/detail-drawer/detail-drawer-types.ts",
+      "target": "{pro}/detail-drawer/detail-drawer-types.ts",
+      "content": "/**\n * DetailDrawer 的公开 Props、Emits 与 Slots 契约。\n */\n\n/** DetailDrawer 公开属性。 */\nexport interface DetailDrawerProps {\n    modelValue: boolean;\n    title: string;\n    description?: string;\n    /** Element Plus Drawer 接受的 CSS 宽度。 */\n    width?: string;\n    loading?: boolean;\n    confirmText?: string;\n    cancelText?: string;\n    showFooter?: boolean;\n}\n\n/** DetailDrawer 公开事件。 */\nexport interface DetailDrawerEmits {\n    'update:modelValue': [visible: boolean];\n    confirm: [];\n    cancel: [];\n}\n\n/** DetailDrawer 公开插槽。 */\nexport interface DetailDrawerSlots {\n    default?: () => unknown;\n    footer?: () => unknown;\n}\n",
+      "hash": "1331109ebe0a801d639d7e7a1cacbfe6d507260a6750e40762f9cd312dfdb65f"
+    },
+    {
+      "path": "registry/pro/detail-drawer/index.ts",
+      "target": "{pro}/detail-drawer/index.ts",
+      "content": "/** UEKit 详情抽屉组件公开入口。 */\n\nexport { default as DetailDrawer } from './DetailDrawer.vue';\nexport type {\n    DetailDrawerEmits,\n    DetailDrawerProps,\n    DetailDrawerSlots,\n} from './detail-drawer-types';\n",
+      "hash": "624afcc0471edcb4eb21762d1ff1693f4053f814aa6f715c3130a1b8e1e7c229"
+    }
+  ],
+  "compatibility": {
+    "node": ">=20.19.0",
+    "vue": ">=3.5.0",
+    "element-plus": ">=2.14.0 <3"
+  }
+}

@@ -1,0 +1,99 @@
+{
+    "name": "uekit-web",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "license": "MIT",
+    "packageManager": "pnpm@11.1.3",
+    "engines": {
+        "node": ">=22.12.0",
+        "pnpm": ">=11.1.3"
+    },
+    "scripts": {
+        "prepare": "husky",
+        "dev": "corepack pnpm --filter @uekits/web-playground dev",
+        "dev:registry": "corepack pnpm --filter @uekits/web-registry-server dev",
+        "cli:build": "corepack pnpm --filter @uekits/web build",
+        "registry:generate": "node packages/cli/dist/index.js build",
+        "registry:release": "corepack pnpm cli:build && node packages/cli/dist/index.js build --release",
+        "registry:build": "corepack pnpm cli:build && corepack pnpm registry:generate && corepack pnpm --filter @uekits/web-registry-server build",
+        "registry:verify": "node scripts/verify-registry.mjs --dir apps/registry-server/dist/web/v1",
+        "playground:verify": "node scripts/verify-playground-sync.mjs",
+        "package:check": "corepack pnpm cli:build && node scripts/verify-package.mjs",
+        "upgrade:verify": "corepack pnpm cli:build && node scripts/verify-upgrade.mjs",
+        "presmoke:package": "corepack pnpm registry:build",
+        "smoke:package": "node scripts/smoke-package.mjs --manager pnpm && node scripts/smoke-package.mjs --manager npm",
+        "build": "corepack pnpm registry:build && corepack pnpm --filter @uekits/web-playground build",
+        "typecheck:root": "tsc --noEmit -p tsconfig.json",
+        "typecheck": "corepack pnpm typecheck:root && corepack pnpm -r --if-present typecheck",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "lint:styles": "stylelint \"{apps,packages,registry,tests}/**/*.{css,scss,vue}\"",
+        "lint:styles:fix": "stylelint \"{apps,packages,registry,tests}/**/*.{css,scss,vue}\" --fix",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "check:file-headers": "node scripts/check-file-headers.mjs",
+        "security:check": "node scripts/check-repository-security.mjs",
+        "licenses:generate": "node scripts/generate-third-party-licenses.mjs",
+        "licenses:check": "node scripts/generate-third-party-licenses.mjs --check",
+        "docs:verify": "node scripts/verify-docs.mjs",
+        "test": "vitest run",
+        "test:e2e": "playwright test",
+        "check": "corepack pnpm security:check && corepack pnpm licenses:check && corepack pnpm format:check && corepack pnpm docs:verify && corepack pnpm check:file-headers && corepack pnpm lint && corepack pnpm lint:styles && corepack pnpm typecheck && corepack pnpm test && corepack pnpm build && corepack pnpm registry:verify && corepack pnpm playground:verify && corepack pnpm upgrade:verify && corepack pnpm package:check",
+        "changeset": "changeset",
+        "version-packages": "changeset version",
+        "release": "corepack pnpm security:check && changeset publish",
+        "cli": "node packages/cli/dist/index.js"
+    },
+    "devDependencies": {
+        "@changesets/cli": "^2.31.0",
+        "@eslint/js": "^10.0.1",
+        "@playwright/test": "^1.57.0",
+        "@types/node": "^22.0.0",
+        "@amap/amap-jsapi-loader": "catalog:",
+        "@lucide/vue": "catalog:",
+        "@vue/test-utils": "^2.4.6",
+        "@vitejs/plugin-vue": "^6.0.7",
+        "eslint": "^10.4.0",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-tsdoc": "^0.5.2",
+        "eslint-plugin-vue": "^10.9.2",
+        "echarts": "catalog:",
+        "element-plus": "catalog:",
+        "globals": "^17.6.1",
+        "happy-dom": "^20.8.3",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.4.0",
+        "postcss-html": "^1.8.1",
+        "prettier": "^3.8.3",
+        "sass": "^1.101.0",
+        "stylelint": "^17.14.0",
+        "stylelint-config-standard-scss": "^17.0.0",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.59.4",
+        "vite": "^8.0.14",
+        "vite-plugin-dts": "^5.0.3",
+        "vitest": "^4.1.10",
+        "vue": "catalog:",
+        "vue-eslint-parser": "^10.4.1",
+        "vue-tsc": "^3.3.1"
+    },
+    "lint-staged": {
+        "*.{js,jsx,cjs,mjs,ts,tsx}": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "*.vue": [
+            "eslint --fix",
+            "stylelint --fix",
+            "prettier --write"
+        ],
+        "*.{css,scss}": [
+            "stylelint --fix",
+            "prettier --write"
+        ],
+        "*.{json,jsonc,md,yml,yaml,html}": [
+            "prettier --write"
+        ]
+    }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "search-panel",
+  "type": "registry:pro",
+  "version": "0.1.0",
+  "url": "items/search-panel/0.1.0.json",
+  "description": "Enterprise search and filter panel.",
+  "dependencies": [
+    "@lucide/vue@^1.17.0"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon"
+  ],
+  "files": [
+    {
+      "path": "registry/pro/search-panel/SearchPanel.vue",
+      "target": "{pro}/search-panel/SearchPanel.vue",
+      "content": "<!--\n    查询条件、折叠摘要和操作区的组合容器。\n\n    组件只管理展示折叠状态，不持有或重置消费方的查询字段值。\n-->\n<template>\n    <section\n        class=\"ue-search-panel text-foreground\"\n        :class=\"mode === 'panel' ? 'rounded-lg border border-border bg-surface' : 'bg-transparent'\"\n    >\n        <header\n            v-if=\"mode === 'panel' && (title || $slots.description || collapsible)\"\n            class=\"ue-search-panel__header flex items-center justify-between gap-3 border-b border-border-subtle p-4\"\n        >\n            <div class=\"min-w-0\">\n                <strong\n                    v-if=\"title\"\n                    class=\"font-semibold\"\n                    >{{ title }}</strong\n                >\n                <p\n                    v-if=\"$slots.description\"\n                    class=\"mt-1 text-xs text-muted-foreground\"\n                >\n                    <slot name=\"description\" />\n                </p>\n            </div>\n            <button\n                v-if=\"collapsible\"\n                type=\"button\"\n                class=\"inline-flex min-h-[var(--ue-control-height)] shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-md border border-border bg-surface px-[13px] font-medium text-foreground-regular hover:border-primary hover:text-primary\"\n                :aria-expanded=\"contentVisible\"\n                @click=\"toggleCollapsed\"\n            >\n                <Icon :icon=\"collapsed ? ChevronDown : ChevronUp\" />\n                {{ collapsed ? '展开筛选' : '收起筛选' }}\n            </button>\n        </header>\n\n        <div\n            v-if=\"mode === 'panel' && collapsible && collapsed\"\n            class=\"ue-search-panel__summary px-4 py-3 text-sm text-muted-foreground\"\n        >\n            <slot name=\"collapsedSummary\">{{ summary }}</slot>\n        </div>\n\n        <div\n            v-if=\"mode === 'embedded' || contentVisible\"\n            class=\"ue-search-panel__content flex flex-wrap items-center gap-3\"\n            :class=\"density === 'compact' || mode === 'embedded' ? 'p-0' : 'p-4'\"\n        >\n            <div\n                class=\"ue-search-panel__fields grid min-w-0 flex-[1_1_640px] grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-3\"\n            >\n                <slot />\n            </div>\n            <div\n                v-if=\"$slots.advanced && advancedVisible\"\n                class=\"ue-search-panel__advanced grid min-w-0 flex-[1_1_100%] grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-3\"\n            >\n                <slot name=\"advanced\" />\n            </div>\n            <div class=\"ue-search-panel__actions flex self-end gap-2\">\n                <button\n                    v-if=\"$slots.advanced && advancedCollapsible\"\n                    class=\"inline-flex min-h-[var(--ue-control-height)] cursor-pointer items-center justify-center gap-1.5 rounded-md border border-border bg-surface px-[13px] font-medium text-foreground-regular hover:border-primary hover:text-primary\"\n                    type=\"button\"\n                    @click=\"advancedCollapsed = !advancedCollapsed\"\n                >\n                    <Icon :icon=\"SlidersHorizontal\" />\n                    {{ advancedCollapsed ? '更多筛选' : '收起更多' }}\n                </button>\n                <slot name=\"actions\">\n                    <button\n                        class=\"inline-flex min-h-[var(--ue-control-height)] cursor-pointer items-center justify-center gap-1.5 rounded-md border border-primary bg-primary px-[13px] font-medium text-white hover:bg-primary-hover\"\n                        type=\"button\"\n                        @click=\"emit('search')\"\n                    >\n                        <Icon :icon=\"Search\" />{{ searchText }}\n                    </button>\n                    <button\n                        class=\"inline-flex min-h-[var(--ue-control-height)] cursor-pointer items-center justify-center gap-1.5 rounded-md border border-border bg-surface px-[13px] font-medium text-foreground-regular hover:border-primary hover:text-primary\"\n                        type=\"button\"\n                        @click=\"emit('reset')\"\n                    >\n                        <Icon :icon=\"RotateCcw\" />{{ resetText }}\n                    </button>\n                </slot>\n            </div>\n        </div>\n    </section>\n</template>\n\n<script setup lang=\"ts\">\nimport { ChevronDown, ChevronUp, RotateCcw, Search, SlidersHorizontal } from '@lucide/vue';\nimport { Icon } from '@/components/ui/icon';\nimport { computed, ref } from 'vue';\nimport type { SearchPanelEmits, SearchPanelProps, SearchPanelSlots } from './search-panel-types';\n\nconst props = withDefaults(defineProps<SearchPanelProps>(), {\n    title: '查询筛选',\n    summary: '已收起筛选条件',\n    collapsible: true,\n    defaultCollapsed: false,\n    searchText: '查询',\n    resetText: '重置',\n    density: 'standard',\n    mode: 'panel',\n    advancedCollapsible: false,\n    defaultAdvancedCollapsed: true,\n});\n\nconst emit = defineEmits<SearchPanelEmits>();\ndefineSlots<SearchPanelSlots>();\nconst collapsed = ref(props.defaultCollapsed);\nconst advancedCollapsed = ref(props.defaultAdvancedCollapsed);\nconst contentVisible = computed(() => !props.collapsible || !collapsed.value);\nconst advancedVisible = computed(() => !props.advancedCollapsible || !advancedCollapsed.value);\n\nfunction toggleCollapsed(): void {\n    collapsed.value = !collapsed.value;\n    emit('collapse', collapsed.value);\n}\n</script>\n",
+      "hash": "8c09b28b5916465394a28ff6449200646f7a3c46ba15d4d8681265570cf253b3"
+    },
+    {
+      "path": "registry/pro/search-panel/search-panel-types.ts",
+      "target": "{pro}/search-panel/search-panel-types.ts",
+      "content": "/**\n * SearchPanel 的公开 Props、Emits 与 Slots 契约。\n */\n\nexport type SearchPanelDensity = 'standard' | 'compact';\nexport type SearchPanelMode = 'panel' | 'embedded';\n\nexport interface SearchPanelProps {\n    title?: string;\n    summary?: string;\n    collapsible?: boolean;\n    defaultCollapsed?: boolean;\n    searchText?: string;\n    resetText?: string;\n    density?: SearchPanelDensity;\n    mode?: SearchPanelMode;\n    advancedCollapsible?: boolean;\n    defaultAdvancedCollapsed?: boolean;\n}\n\nexport interface SearchPanelEmits {\n    search: [];\n    reset: [];\n    collapse: [collapsed: boolean];\n}\n\nexport interface SearchPanelSlots {\n    default?: () => unknown;\n    description?: () => unknown;\n    collapsedSummary?: () => unknown;\n    advanced?: () => unknown;\n    actions?: () => unknown;\n}\n",
+      "hash": "704773feb2106151f83da819cfb38e1b497bf5a308701b4f9baf07859897bd89"
+    },
+    {
+      "path": "registry/pro/search-panel/index.ts",
+      "target": "{pro}/search-panel/index.ts",
+      "content": "/** UEKit 查询面板组件公开入口。 */\n\nexport { default as SearchPanel } from './SearchPanel.vue';\nexport type {\n    SearchPanelDensity,\n    SearchPanelEmits,\n    SearchPanelMode,\n    SearchPanelProps,\n    SearchPanelSlots,\n} from './search-panel-types';\n",
+      "hash": "9b76041bb4c2cd31830d248f990a1949776b6e6a060e57e7902a6c1692b2665d"
+    }
+  ],
+  "compatibility": {
+    "node": ">=20.19.0",
+    "vue": ">=3.5.0",
+    "element-plus": ">=2.14.0 <3"
+  }
+}

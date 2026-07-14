@@ -1,0 +1,38 @@
+{
+  "name": "charts-echarts",
+  "type": "registry:integration",
+  "version": "0.1.0",
+  "url": "items/charts-echarts/0.1.0.json",
+  "description": "ECharts lifecycle and responsive resize adapter.",
+  "dependencies": [
+    "echarts@^6.1.0"
+  ],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "registry/integrations/charts-echarts/ChartEcharts.vue",
+      "target": "{integrations}/charts-echarts/ChartEcharts.vue",
+      "content": "<!--\n    ECharts 实例的 Vue 生命周期适配器。\n\n    组件持有图表和 ResizeObserver；主题变化时重建实例，卸载时释放全部浏览器资源。\n-->\n<template>\n    <div\n        ref=\"container\"\n        class=\"ue-chart-echarts min-h-[280px] w-full\"\n        role=\"img\"\n        :aria-label=\"ariaLabel\"\n    />\n</template>\n\n<script setup lang=\"ts\">\nimport * as echarts from 'echarts';\nimport { onBeforeUnmount, onMounted, ref, watch } from 'vue';\nimport type { ChartEchartsEmits, ChartEchartsProps } from './chart-echarts-types';\n\nconst props = withDefaults(defineProps<ChartEchartsProps>(), {\n    theme: undefined,\n    autoresize: true,\n    notMerge: false,\n    lazyUpdate: true,\n    ariaLabel: '数据图表',\n});\n\nconst emit = defineEmits<ChartEchartsEmits>();\nconst container = ref<HTMLElement | null>(null);\nlet chart: echarts.ECharts | undefined;\nlet observer: ResizeObserver | undefined;\n\nfunction disconnectObserver(): void {\n    observer?.disconnect();\n    observer = undefined;\n}\n\nfunction configureResizeObserver(): void {\n    disconnectObserver();\n    if (!props.autoresize || !container.value) {\n        return;\n    }\n    observer = new ResizeObserver(() => chart?.resize());\n    observer.observe(container.value);\n}\n\n/** ECharts 主题不可在现有实例上变更，因此重建时先释放旧实例及 Observer。 */\nfunction initializeChart(): void {\n    if (!container.value) {\n        return;\n    }\n    disconnectObserver();\n    chart?.dispose();\n    chart = echarts.init(container.value, props.theme);\n    chart.setOption(props.option);\n    configureResizeObserver();\n    emit('ready', chart);\n}\n\nonMounted(() => {\n    initializeChart();\n});\n\nwatch(\n    () => props.option,\n    (option) =>\n        chart?.setOption(option, {\n            notMerge: props.notMerge,\n            lazyUpdate: props.lazyUpdate,\n        }),\n);\n\nwatch(() => props.theme, initializeChart);\nwatch(() => props.autoresize, configureResizeObserver);\n\nonBeforeUnmount(() => {\n    disconnectObserver();\n    chart?.dispose();\n    chart = undefined;\n});\n</script>\n",
+      "hash": "5c8d77188e8dd5c689942bbd267ebf1a60511e53f724525302c2c15020e2651c"
+    },
+    {
+      "path": "registry/integrations/charts-echarts/chart-echarts-types.ts",
+      "target": "{integrations}/charts-echarts/chart-echarts-types.ts",
+      "content": "/**\n * ChartEcharts 的公开 Props 与 Emits 契约。\n */\n\nimport type { ECharts, EChartsOption } from 'echarts';\n\n/** ChartEcharts 公开属性。 */\nexport interface ChartEchartsProps {\n    /** ECharts 配置；内容变化后应替换对象引用以触发增量更新。 */\n    option: EChartsOption;\n    /** ECharts 已注册主题名或主题对象；变化后重建实例。 */\n    theme?: string | object;\n    /** 是否使用 ResizeObserver 跟随容器尺寸。 */\n    autoresize?: boolean;\n    /** 更新时是否丢弃已有组件状态，默认使用 ECharts 增量合并。 */\n    notMerge?: boolean;\n    /** 是否延迟更新绘制，默认启用。 */\n    lazyUpdate?: boolean;\n    /** 图表容器的无障碍名称。 */\n    ariaLabel?: string;\n}\n\n/** ChartEcharts 公开事件。 */\nexport interface ChartEchartsEmits {\n    ready: [chart: ECharts];\n}\n",
+      "hash": "1ff2461536ffd56ccaa679410c7a7c6cfb7f66612d1d637e5eb5fe2a44a257f9"
+    },
+    {
+      "path": "registry/integrations/charts-echarts/index.ts",
+      "target": "{integrations}/charts-echarts/index.ts",
+      "content": "/** UEKit ECharts 集成组件公开入口。 */\n\nexport { default as ChartEcharts } from './ChartEcharts.vue';\nexport type { ChartEchartsEmits, ChartEchartsProps } from './chart-echarts-types';\n",
+      "hash": "49bf3c3994a881a6f4ba272d2909e302b589e3f179af1326b4b1a32b2027e335"
+    }
+  ],
+  "compatibility": {
+    "node": ">=20.19.0",
+    "vue": ">=3.5.0",
+    "element-plus": ">=2.14.0 <3"
+  }
+}

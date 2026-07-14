@@ -1,0 +1,44 @@
+{
+  "name": "map-amap",
+  "type": "registry:integration",
+  "version": "0.1.0",
+  "url": "items/map-amap/0.1.0.json",
+  "description": "AMap JS API lifecycle adapter.",
+  "dependencies": [
+    "@amap/amap-jsapi-loader@^1.0.1"
+  ],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "registry/integrations/map-amap/MapAmap.vue",
+      "target": "{integrations}/map-amap/MapAmap.vue",
+      "content": "<!--\n    高德地图 JavaScript API 的 Vue 生命周期适配器。\n\n    异步 SDK 加载可能晚于组件卸载，因此创建实例前检查存活状态，并统一销毁组件持有的地图。\n-->\n<template>\n    <div\n        ref=\"container\"\n        class=\"ue-map-amap min-h-80 w-full\"\n        role=\"img\"\n        :aria-label=\"ariaLabel\"\n    />\n</template>\n\n<script setup lang=\"ts\">\nimport AMapLoader from '@amap/amap-jsapi-loader';\nimport { onBeforeUnmount, onMounted, ref, watch } from 'vue';\nimport type { MapAmapEmits, MapAmapInstance, MapAmapProps } from './map-amap-types';\n\nconst props = withDefaults(defineProps<MapAmapProps>(), {\n    securityCode: '',\n    center: () => [116.397428, 39.90923],\n    zoom: 12,\n    mapStyle: 'amap://styles/normal',\n    ariaLabel: '交互式地图',\n});\n\nconst emit = defineEmits<MapAmapEmits>();\nconst container = ref<HTMLElement | null>(null);\nlet map: MapAmapInstance | undefined;\nlet disposed = false;\nlet initialization = 0;\n\nasync function initializeMap(): Promise<void> {\n    const request = ++initialization;\n    map?.destroy();\n    map = undefined;\n    try {\n        if (props.securityCode) {\n            // 这是高德 SDK 的进程级配置，不能在单个组件卸载时删除，以免影响其他地图实例。\n            globalThis._AMapSecurityConfig = { securityJsCode: props.securityCode };\n        }\n        const AMap = await AMapLoader.load({ key: props.apiKey, version: '2.0' });\n        if (disposed || request !== initialization || !container.value) {\n            return;\n        }\n        const instance: MapAmapInstance = new AMap.Map(container.value, {\n            center: props.center,\n            zoom: props.zoom,\n            mapStyle: props.mapStyle,\n        });\n        if (disposed || request !== initialization) {\n            instance.destroy();\n            return;\n        }\n        map = instance;\n        emit('ready', map, AMap);\n    } catch (error) {\n        if (!disposed && request === initialization) {\n            emit('error', error);\n        }\n    }\n}\n\nonMounted(() => {\n    void initializeMap();\n});\n\nwatch([() => props.apiKey, () => props.securityCode], () => void initializeMap());\nwatch(\n    () => props.center,\n    (center) => map?.setCenter(center),\n);\nwatch(\n    () => props.zoom,\n    (zoom) => map?.setZoom(zoom),\n);\nwatch(\n    () => props.mapStyle,\n    (style) => map?.setMapStyle(style),\n);\n\nonBeforeUnmount(() => {\n    disposed = true;\n    initialization += 1;\n    map?.destroy();\n    map = undefined;\n});\n</script>\n",
+      "hash": "dbc6fff57b6eddeeec0e92402cecc87c0460cfe93037c4e519326966bfe91bfd"
+    },
+    {
+      "path": "registry/integrations/map-amap/amap.d.ts",
+      "target": "{integrations}/map-amap/amap.d.ts",
+      "content": "/**\n * 高德地图加载器约定的全局安全配置声明。\n */\n\nexport {};\n\ndeclare global {\n    var _AMapSecurityConfig: { securityJsCode: string } | undefined;\n}\n",
+      "hash": "9f44436e1ef5c32b05a843284de9b3c53d5f4cfa45e35709e093cb0932f8980d"
+    },
+    {
+      "path": "registry/integrations/map-amap/map-amap-types.ts",
+      "target": "{integrations}/map-amap/map-amap-types.ts",
+      "content": "/**\n * MapAmap 的公开 Props、Emits 与实例契约。\n */\n\n/** 组件依赖的最小高德地图实例能力。 */\nexport interface MapAmapInstance {\n    destroy: () => void;\n    setCenter: (center: [number, number]) => void;\n    setZoom: (zoom: number) => void;\n    setMapStyle: (style: string) => void;\n}\n\n/** MapAmap 公开属性。 */\nexport interface MapAmapProps {\n    /** 高德地图 Web 端 Key；变化时组件会销毁并重新初始化地图。 */\n    apiKey: string;\n    /** 安全密钥；变化时组件会销毁并重新初始化地图。 */\n    securityCode?: string;\n    /** 地图中心点；变化时调用实例 `setCenter`。 */\n    center?: [number, number];\n    /** 地图缩放级别；变化时调用实例 `setZoom`。 */\n    zoom?: number;\n    /** 地图样式；变化时调用实例 `setMapStyle`。 */\n    mapStyle?: string;\n    /** 地图容器的无障碍名称。 */\n    ariaLabel?: string;\n}\n\n/** MapAmap 公开事件。 */\nexport interface MapAmapEmits {\n    ready: [map: MapAmapInstance, AMap: unknown];\n    error: [error: unknown];\n}\n",
+      "hash": "9a98aa132dafb97f473af0074dafdc6f50f31199fe128d4bd7ca104959be4b39"
+    },
+    {
+      "path": "registry/integrations/map-amap/index.ts",
+      "target": "{integrations}/map-amap/index.ts",
+      "content": "/** UEKit 高德地图集成组件公开入口。 */\n\nexport { default as MapAmap } from './MapAmap.vue';\nexport type { MapAmapEmits, MapAmapInstance, MapAmapProps } from './map-amap-types';\n",
+      "hash": "357a41bb70e244b22d10235cf5ee4896aa38b6e1104316886cb6f6cf78641aeb"
+    }
+  ],
+  "compatibility": {
+    "node": ">=20.19.0",
+    "vue": ">=3.5.0",
+    "element-plus": ">=2.14.0 <3"
+  }
+}

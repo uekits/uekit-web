@@ -1,0 +1,38 @@
+{
+  "name": "avatar",
+  "type": "registry:ui",
+  "version": "0.1.0",
+  "url": "items/avatar/0.1.0.json",
+  "description": "User avatar with image failure fallback.",
+  "dependencies": [
+    "element-plus@^2.14.0"
+  ],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/avatar/Avatar.vue",
+      "target": "{ui}/avatar/Avatar.vue",
+      "content": "<!--\n    带图片预加载和文字回退的用户头像。\n\n    图片加载由组件持有，并在来源变化或卸载时解除回调，避免过期请求更新当前状态。\n-->\n<template>\n    <ElAvatar\n        class=\"ue-avatar shrink-0 border border-primary/20 bg-primary-soft text-primary shadow-none\"\n        :src=\"effectiveSource\"\n        :size=\"size\"\n        :alt=\"accessibleLabel\"\n        @error=\"handleImageError\"\n    >\n        <span\n            class=\"ue-avatar__fallback inline-flex size-full items-center justify-center text-center leading-none text-inherit\"\n        >\n            {{ fallback }}\n        </span>\n    </ElAvatar>\n</template>\n\n<script setup lang=\"ts\">\nimport { ElAvatar } from 'element-plus';\nimport 'element-plus/es/components/avatar/style/css';\nimport { computed, ref, watch } from 'vue';\nimport type { AvatarProps } from './avatar-types';\n\nconst props = withDefaults(defineProps<AvatarProps>(), {\n    name: '',\n    src: '',\n    size: 40,\n    alt: '',\n});\n\nconst fallback = computed(() => props.name.trim().slice(0, 1) || '用');\nconst failedSource = ref('');\nconst loadedSource = ref('');\nconst effectiveSource = computed(() =>\n    props.src && props.src === loadedSource.value && props.src !== failedSource.value\n        ? props.src\n        : undefined,\n);\nconst accessibleLabel = computed(\n    () => props.alt || (props.name ? `${props.name}的头像` : '用户头像'),\n);\n\nwatch(\n    () => props.src,\n    (source, _previousSource, onCleanup) => {\n        failedSource.value = '';\n        loadedSource.value = '';\n\n        if (!source || typeof Image === 'undefined') {\n            return;\n        }\n\n        const image = new Image();\n        image.onload = () => {\n            if (props.src === source) loadedSource.value = source;\n        };\n        image.onerror = () => {\n            if (props.src === source) failedSource.value = source;\n        };\n        image.src = source;\n\n        onCleanup(() => {\n            image.onload = null;\n            image.onerror = null;\n        });\n    },\n    { immediate: true },\n);\n\nfunction handleImageError(): boolean {\n    failedSource.value = props.src;\n    loadedSource.value = '';\n    return false;\n}\n</script>\n\n<style scoped>\n.ue-avatar {\n    font-size: calc(var(--el-avatar-size) * 0.38);\n    font-weight: 600;\n    line-height: 1;\n}\n\n.ue-avatar :deep(img) {\n    object-fit: cover;\n}\n</style>\n",
+      "hash": "6ac0961609496cc98578a531922e0141a75f2cc10589edec389d60e2ed381f4b"
+    },
+    {
+      "path": "registry/ui/avatar/avatar-types.ts",
+      "target": "{ui}/avatar/avatar-types.ts",
+      "content": "/**\n * Avatar 的公开 Props 契约。\n */\n\n/** Avatar 公开属性。 */\nexport interface AvatarProps {\n    /** 用于生成文字回退和默认无障碍名称。 */\n    name?: string;\n    /** 图片地址；加载失败或尚未完成时显示文字回退。 */\n    src?: string;\n    /** Element Plus 头像尺寸，单位为像素。 */\n    size?: number;\n    /** 图片的无障碍替代文本。 */\n    alt?: string;\n}\n",
+      "hash": "faa18e1004af2d45cc68a1564d4aa980cd32085c77a4033050a0f069e420b836"
+    },
+    {
+      "path": "registry/ui/avatar/index.ts",
+      "target": "{ui}/avatar/index.ts",
+      "content": "/** UEKit 头像组件公开入口。 */\n\nexport { default as Avatar } from './Avatar.vue';\nexport type { AvatarProps } from './avatar-types';\n",
+      "hash": "4b068563a0aceb2730022e804fe1cf49ce89a5ea4b0770b27c18dc1d4c127a3e"
+    }
+  ],
+  "compatibility": {
+    "node": ">=20.19.0",
+    "vue": ">=3.5.0",
+    "element-plus": ">=2.14.0 <3"
+  }
+}

@@ -1,0 +1,232 @@
+/**
+ * UEKit 语义 Token、Element Plus 变量桥接和 Tailwind v4 主题映射。
+ */
+
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+/* UEKit owns the base layer. Tailwind Preflight is intentionally not imported. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+    --color-primary: var(--ue-color-primary);
+    --color-primary-hover: var(--ue-color-primary-hover);
+    --color-primary-active: var(--ue-color-primary-active);
+    --color-primary-soft: var(--ue-color-primary-soft);
+    --color-success: var(--ue-color-success);
+    --color-success-soft: var(--ue-color-success-soft);
+    --color-warning: var(--ue-color-warning);
+    --color-warning-soft: var(--ue-color-warning-soft);
+    --color-danger: var(--ue-color-danger);
+    --color-danger-soft: var(--ue-color-danger-soft);
+    --color-info: var(--ue-color-info);
+    --color-info-soft: var(--ue-color-info-soft);
+    --color-foreground: var(--ue-color-text-primary);
+    --color-foreground-regular: var(--ue-color-text-regular);
+    --color-muted-foreground: var(--ue-color-text-secondary);
+    --color-placeholder: var(--ue-color-text-placeholder);
+    --color-disabled: var(--ue-color-text-disabled);
+    --color-border: var(--ue-color-border);
+    --color-border-subtle: var(--ue-color-border-subtle);
+    --color-border-strong: var(--ue-color-border-strong);
+    --color-surface: var(--ue-color-surface);
+    --color-surface-muted: var(--ue-color-surface-muted);
+    --color-surface-elevated: var(--ue-color-surface-elevated);
+    --color-overlay: var(--ue-color-overlay);
+    --color-page: var(--ue-color-page);
+    --font-sans: var(--ue-font-family);
+    --font-mono: var(--ue-font-family-number);
+    --text-xs: var(--ue-font-size-xs);
+    --text-sm: var(--ue-font-size-sm);
+    --text-base: var(--ue-font-size-md);
+    --text-lg: var(--ue-font-size-lg);
+    --text-xl: var(--ue-font-size-xl);
+    --text-2xl: var(--ue-font-size-title);
+    --font-weight-normal: var(--ue-font-weight-regular);
+    --font-weight-medium: var(--ue-font-weight-medium);
+    --font-weight-semibold: var(--ue-font-weight-semibold);
+    --font-weight-bold: var(--ue-font-weight-bold);
+    --leading-tight: var(--ue-line-height-tight);
+    --leading-normal: var(--ue-line-height-body);
+    --spacing: 4px;
+    --radius-sm: var(--ue-radius-sm);
+    --radius-md: var(--ue-radius-md);
+    --radius-lg: var(--ue-radius-lg);
+    --radius-xl: var(--ue-radius-xl);
+    --shadow-xs: var(--ue-shadow-xs);
+    --shadow-elevated: var(--ue-shadow-elevated);
+    --shadow-dialog: var(--ue-shadow-dialog);
+}
+
+:root {
+    color-scheme: light;
+
+    --ue-color-primary: #2563eb;
+    --ue-color-primary-hover: #1d4ed8;
+    --ue-color-primary-active: #1e40af;
+    --ue-color-primary-soft: #eff6ff;
+    --ue-color-primary-rgb: 37 99 235;
+    --ue-color-success: #16a34a;
+    --ue-color-success-soft: #ecfdf3;
+    --ue-color-success-rgb: 22 163 74;
+    --ue-color-warning: #d97706;
+    --ue-color-warning-soft: #fff7ed;
+    --ue-color-warning-rgb: 217 119 6;
+    --ue-color-danger: #dc2626;
+    --ue-color-danger-soft: #fef2f2;
+    --ue-color-danger-rgb: 220 38 38;
+    --ue-color-info: #475569;
+    --ue-color-info-soft: #f1f5f9;
+    --ue-color-info-rgb: 71 85 105;
+
+    --ue-color-text-primary: #172033;
+    --ue-color-text-regular: #475569;
+    --ue-color-text-secondary: #64748b;
+    --ue-color-text-placeholder: #94a3b8;
+    --ue-color-text-disabled: #a8b3c2;
+    --ue-color-border: #dbe3ef;
+    --ue-color-border-subtle: #e8edf5;
+    --ue-color-border-strong: #cbd5e1;
+    --ue-color-surface: #fff;
+    --ue-color-surface-muted: #f6f8fb;
+    --ue-color-surface-elevated: #fff;
+    --ue-color-overlay: rgb(15 23 42 / 45%);
+    --ue-color-page: #f1f5f9;
+
+    --ue-font-family: Inter, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --ue-font-family-number: Inter, 'DIN Alternate', 'Roboto Mono', monospace;
+    --ue-font-size-xs: 12px;
+    --ue-font-size-sm: 13px;
+    --ue-font-size-md: 14px;
+    --ue-font-size-lg: 16px;
+    --ue-font-size-xl: 20px;
+    --ue-font-size-title: 24px;
+    --ue-font-weight-regular: 400;
+    --ue-font-weight-medium: 500;
+    --ue-font-weight-semibold: 600;
+    --ue-font-weight-bold: 700;
+    --ue-line-height-tight: 1.35;
+    --ue-line-height-body: 1.6;
+
+    --ue-spacing-xs: 4px;
+    --ue-spacing-sm: 8px;
+    --ue-spacing-md: 12px;
+    --ue-spacing-lg: 16px;
+    --ue-spacing-2xl: 32px;
+    --ue-spacing-xl: 24px;
+
+    --ue-radius-sm: 4px;
+    --ue-radius-md: 6px;
+    --ue-radius-lg: 8px;
+    --ue-radius-xl: 12px;
+    --ue-radius-pill: 999px;
+    --ue-control-height-sm: 28px;
+    --ue-control-height: 32px;
+    --ue-control-height-lg: 40px;
+    --ue-drawer-width: min(900px, 86vw);
+    --ue-z-index-overlay: 2000;
+    --ue-z-index-dialog: 2010;
+    --ue-shadow-xs: 0 1px 2px rgb(15 23 42 / 5%);
+    --ue-shadow-elevated: 0 8px 24px rgb(15 23 42 / 10%);
+    --ue-shadow-dialog: 0 24px 64px rgb(15 23 42 / 20%);
+
+    /* Element Plus consumes the same semantic source of truth. */
+    --el-color-primary: var(--ue-color-primary);
+    --el-color-success: var(--ue-color-success);
+    --el-color-warning: var(--ue-color-warning);
+    --el-color-danger: var(--ue-color-danger);
+    --el-color-info: var(--ue-color-info);
+    --el-text-color-primary: var(--ue-color-text-primary);
+    --el-text-color-regular: var(--ue-color-text-regular);
+    --el-text-color-secondary: var(--ue-color-text-secondary);
+    --el-text-color-placeholder: var(--ue-color-text-placeholder);
+    --el-border-color: var(--ue-color-border);
+    --el-border-color-light: var(--ue-color-border-subtle);
+    --el-border-radius-base: var(--ue-radius-md);
+    --el-bg-color: var(--ue-color-surface);
+    --el-bg-color-page: var(--ue-color-page);
+    --el-bg-color-overlay: var(--ue-color-surface-elevated);
+    --el-fill-color: var(--ue-color-surface-muted);
+    --el-fill-color-light: var(--ue-color-surface-muted);
+    --el-fill-color-lighter: var(--ue-color-surface);
+    --el-fill-color-blank: var(--ue-color-surface);
+    --el-mask-color: var(--ue-color-overlay);
+    --el-font-family: var(--ue-font-family);
+    --el-font-size-base: var(--ue-font-size-md);
+}
+
+html.dark:root {
+    color-scheme: dark;
+
+    --ue-color-primary: #60a5fa;
+    --ue-color-primary-hover: #93c5fd;
+    --ue-color-primary-active: #3b82f6;
+    --ue-color-primary-soft: #172c4d;
+    --ue-color-primary-rgb: 96 165 250;
+    --ue-color-success: #4ade80;
+    --ue-color-success-soft: #123424;
+    --ue-color-success-rgb: 74 222 128;
+    --ue-color-warning: #fbbf24;
+    --ue-color-warning-soft: #3b2d12;
+    --ue-color-warning-rgb: 251 191 36;
+    --ue-color-danger: #f87171;
+    --ue-color-danger-soft: #3d1c24;
+    --ue-color-danger-rgb: 248 113 113;
+    --ue-color-info: #94a3b8;
+    --ue-color-info-soft: #202d40;
+    --ue-color-info-rgb: 148 163 184;
+
+    --ue-color-text-primary: #e5edf8;
+    --ue-color-text-regular: #c0ccdc;
+    --ue-color-text-secondary: #94a3b8;
+    --ue-color-text-placeholder: #718096;
+    --ue-color-text-disabled: #5c697d;
+    --ue-color-border: #334155;
+    --ue-color-border-subtle: #263548;
+    --ue-color-border-strong: #475569;
+    --ue-color-surface: #111c2f;
+    --ue-color-surface-muted: #162238;
+    --ue-color-surface-elevated: #17243a;
+    --ue-color-overlay: rgb(0 0 0 / 62%);
+    --ue-color-page: #091321;
+    --ue-shadow-xs: 0 1px 2px rgb(0 0 0 / 25%);
+    --ue-shadow-elevated: 0 8px 24px rgb(0 0 0 / 30%);
+    --ue-shadow-dialog: 0 24px 64px rgb(0 0 0 / 45%);
+
+    /* Keep UEKit authoritative when Element Plus dark variables are also loaded. */
+    --el-color-primary: var(--ue-color-primary);
+    --el-color-success: var(--ue-color-success);
+    --el-color-warning: var(--ue-color-warning);
+    --el-color-danger: var(--ue-color-danger);
+    --el-color-info: var(--ue-color-info);
+    --el-text-color-primary: var(--ue-color-text-primary);
+    --el-text-color-regular: var(--ue-color-text-regular);
+    --el-text-color-secondary: var(--ue-color-text-secondary);
+    --el-text-color-placeholder: var(--ue-color-text-placeholder);
+    --el-border-color: var(--ue-color-border);
+    --el-border-color-light: var(--ue-color-border-subtle);
+    --el-bg-color: var(--ue-color-surface);
+    --el-bg-color-page: var(--ue-color-page);
+    --el-bg-color-overlay: var(--ue-color-surface-elevated);
+    --el-fill-color: var(--ue-color-surface-muted);
+    --el-fill-color-light: var(--ue-color-surface-muted);
+    --el-fill-color-lighter: var(--ue-color-surface);
+    --el-fill-color-blank: var(--ue-color-surface);
+    --el-mask-color: var(--ue-color-overlay);
+}
+
+html,
+body {
+    margin: 0;
+    color: var(--ue-color-text-primary);
+    font-family: var(--ue-font-family);
+    font-size: var(--ue-font-size-md);
+    background: var(--ue-color-page);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}

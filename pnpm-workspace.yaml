@@ -1,0 +1,20 @@
+packages:
+    - apps/*
+    - packages/*
+    - internal/*
+    - registry
+
+allowBuilds:
+    '@parcel/watcher': true
+
+overrides:
+    ini@1.3.5: 1.3.8
+
+catalog:
+    '@amap/amap-jsapi-loader': ^1.0.1
+    '@lucide/vue': ^1.17.0
+    '@tailwindcss/vite': ^4.3.0
+    echarts: ^6.1.0
+    element-plus: ^2.14.0
+    tailwindcss: ^4.3.0
+    vue: ^3.5.34

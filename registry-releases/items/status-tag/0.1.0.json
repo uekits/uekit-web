@@ -1,0 +1,35 @@
+{
+  "name": "status-tag",
+  "type": "registry:ui",
+  "version": "0.1.0",
+  "url": "items/status-tag/0.1.0.json",
+  "description": "Semantic status indicator.",
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/status-tag/StatusTag.vue",
+      "target": "{ui}/status-tag/StatusTag.vue",
+      "content": "<!--\n    企业状态语义标签。\n\n    颜色由有限 tone 集合映射，默认圆点为辅助视觉，不重复暴露给辅助技术。\n-->\n<template>\n    <span\n        class=\"ue-status-tag inline-flex min-h-6 w-fit max-w-full items-center justify-center gap-[5px] overflow-hidden rounded-full border px-[9px] py-0.5 text-xs leading-tight font-semibold text-ellipsis whitespace-nowrap\"\n        :class=\"[`is-${tone}`, `is-${size}`, { 'is-disabled': disabled }]\"\n    >\n        <i\n            v-if=\"dot\"\n            class=\"size-1.5 shrink-0 rounded-full bg-current\"\n            aria-hidden=\"true\"\n        />\n        <slot>{{ label }}</slot>\n    </span>\n</template>\n\n<script setup lang=\"ts\">\nimport type { StatusTagProps, StatusTagSlots } from './status-types';\n\nwithDefaults(defineProps<StatusTagProps>(), {\n    label: '',\n    tone: 'neutral',\n    size: 'medium',\n    dot: true,\n    disabled: false,\n});\ndefineSlots<StatusTagSlots>();\n</script>\n\n<style scoped>\n.ue-status-tag {\n    --ue-tag-color: var(--ue-color-info);\n    --ue-tag-bg: var(--ue-color-info-soft);\n    --ue-tag-border: rgb(var(--ue-color-info-rgb) / 20%);\n\n    color: var(--ue-tag-color);\n    background: var(--ue-tag-bg);\n    border-color: var(--ue-tag-border);\n}\n\n.ue-status-tag.is-small {\n    min-height: 20px;\n    padding: 1px 7px;\n}\n\n.ue-status-tag.is-success {\n    --ue-tag-color: var(--ue-color-success);\n    --ue-tag-bg: var(--ue-color-success-soft);\n    --ue-tag-border: rgb(var(--ue-color-success-rgb) / 20%);\n}\n\n.ue-status-tag.is-warning {\n    --ue-tag-color: var(--ue-color-warning);\n    --ue-tag-bg: var(--ue-color-warning-soft);\n    --ue-tag-border: rgb(var(--ue-color-warning-rgb) / 20%);\n}\n\n.ue-status-tag.is-danger {\n    --ue-tag-color: var(--ue-color-danger);\n    --ue-tag-bg: var(--ue-color-danger-soft);\n    --ue-tag-border: rgb(var(--ue-color-danger-rgb) / 20%);\n}\n\n.ue-status-tag.is-info {\n    --ue-tag-color: var(--ue-color-primary);\n    --ue-tag-bg: var(--ue-color-primary-soft);\n    --ue-tag-border: rgb(var(--ue-color-primary-rgb) / 20%);\n}\n\n.ue-status-tag.is-neutral {\n    --ue-tag-color: var(--ue-color-text-regular);\n    --ue-tag-bg: var(--ue-color-surface-muted);\n    --ue-tag-border: var(--ue-color-border);\n}\n\n.ue-status-tag.is-disabled {\n    opacity: 0.58;\n}\n</style>\n",
+      "hash": "b043906732815a12f8a64f351bbd56c7889f3dd97ac5afb8df2b64b5fa0223bf"
+    },
+    {
+      "path": "registry/ui/status-tag/status-types.ts",
+      "target": "{ui}/status-tag/status-types.ts",
+      "content": "/**\n * StatusTag 的公开视觉类型。\n */\n\n/** StatusTag 支持的语义色调。 */\nexport type StatusTagTone = 'neutral' | 'info' | 'success' | 'warning' | 'danger';\n/** StatusTag 支持的紧凑尺寸。 */\nexport type StatusTagSize = 'small' | 'medium';\n\n/** StatusTag 公开属性。 */\nexport interface StatusTagProps {\n    label?: string;\n    tone?: StatusTagTone;\n    size?: StatusTagSize;\n    dot?: boolean;\n    disabled?: boolean;\n}\n\n/** StatusTag 公开插槽。 */\nexport interface StatusTagSlots {\n    default?: () => unknown;\n}\n",
+      "hash": "c61919ab0c724cfda796caabed6ddfe69d523a12d30f88b4d51de27ef4443049"
+    },
+    {
+      "path": "registry/ui/status-tag/index.ts",
+      "target": "{ui}/status-tag/index.ts",
+      "content": "/** UEKit 状态标签及公开类型入口。 */\n\nexport { default as StatusTag } from './StatusTag.vue';\nexport type { StatusTagProps, StatusTagSize, StatusTagSlots, StatusTagTone } from './status-types';\n",
+      "hash": "f16dcf5d2bc5c2abf699360c17d4d5d4ce652b1e4488709d5e33cf8ff0029343"
+    }
+  ],
+  "compatibility": {
+    "node": ">=20.19.0",
+    "vue": ">=3.5.0",
+    "element-plus": ">=2.14.0 <3"
+  }
+}

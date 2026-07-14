@@ -1,0 +1,10 @@
+{
+    // Vue 3 与 TypeScript 官方语言服务。
+    "recommendations": [
+        "Vue.volar",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "ms-playwright.playwright"
+    ]
+}

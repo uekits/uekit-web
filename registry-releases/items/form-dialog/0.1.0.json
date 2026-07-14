@@ -1,0 +1,40 @@
+{
+  "name": "form-dialog",
+  "type": "registry:pro",
+  "version": "0.1.0",
+  "url": "items/form-dialog/0.1.0.json",
+  "description": "Resizable form dialog shell with full-screen mode.",
+  "dependencies": [
+    "@lucide/vue@^1.17.0",
+    "element-plus@^2.14.0"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon"
+  ],
+  "files": [
+    {
+      "path": "registry/pro/form-dialog/FormDialog.vue",
+      "target": "{pro}/form-dialog/FormDialog.vue",
+      "content": "<!--\n    表单编辑场景的受控对话框容器。\n\n    组件管理临时全屏状态，表单数据、提交结果和可见性最终由消费方持有。\n-->\n<template>\n    <ElDialog\n        class=\"ue-form-dialog\"\n        :model-value=\"modelValue\"\n        :width=\"dialogWidth\"\n        :fullscreen=\"fullscreen\"\n        :style=\"dialogStyle\"\n        :draggable=\"draggable && !fullscreen\"\n        :close-on-click-modal=\"closeOnOverlay\"\n        append-to-body\n        destroy-on-close\n        align-center\n        @update:model-value=\"(visible: boolean) => emit('update:modelValue', visible)\"\n        @close=\"handleClosed\"\n    >\n        <template #header>\n            <div class=\"ue-form-dialog__header flex items-start justify-between gap-3 pr-7\">\n                <div class=\"min-w-0\">\n                    <strong class=\"text-lg font-semibold\">{{ title }}</strong>\n                    <p\n                        v-if=\"description\"\n                        class=\"mt-[5px] text-sm text-muted-foreground\"\n                    >\n                        {{ description }}\n                    </p>\n                </div>\n                <button\n                    type=\"button\"\n                    class=\"grid size-[30px] shrink-0 cursor-pointer place-items-center rounded-md border-0 bg-transparent text-muted-foreground hover:bg-primary-soft hover:text-primary\"\n                    :aria-label=\"fullscreen ? '还原窗口' : '全屏窗口'\"\n                    @click=\"fullscreen = !fullscreen\"\n                >\n                    <Icon :icon=\"fullscreen ? Minimize2 : Expand\" />\n                </button>\n            </div>\n        </template>\n        <div\n            class=\"ue-form-dialog__body relative max-h-[calc(100vh-190px)] overflow-auto p-6\"\n            :style=\"bodyStyle\"\n        >\n            <div\n                v-if=\"loading\"\n                class=\"ue-form-dialog__loading absolute inset-0 z-[2] grid place-items-center bg-primary-soft/40 text-primary\"\n            >\n                <Icon\n                    :icon=\"LoaderCircle\"\n                    spin\n                    :size=\"22\"\n                />\n            </div>\n            <slot v-else />\n        </div>\n        <template\n            v-if=\"showFooter\"\n            #footer\n        >\n            <slot name=\"footer\">\n                <ElButton @click=\"close\">{{ cancelText }}</ElButton>\n                <ElButton\n                    type=\"primary\"\n                    :loading=\"loading\"\n                    @click=\"emit('confirm')\"\n                    >{{ confirmText }}</ElButton\n                >\n            </slot>\n        </template>\n    </ElDialog>\n</template>\n\n<script setup lang=\"ts\">\nimport { Expand, LoaderCircle, Minimize2 } from '@lucide/vue';\nimport { Icon } from '@/components/ui/icon';\nimport { ElButton, ElDialog } from 'element-plus';\nimport 'element-plus/es/components/button/style/css';\nimport 'element-plus/es/components/dialog/style/css';\nimport { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';\nimport type { FormDialogEmits, FormDialogProps, FormDialogSlots } from './form-dialog-types';\n\nconst props = withDefaults(defineProps<FormDialogProps>(), {\n    description: '',\n    width: 860,\n    height: 680,\n    minWidth: 560,\n    minHeight: 420,\n    draggable: true,\n    showFooter: true,\n    loading: false,\n    confirmText: '确定',\n    cancelText: '取消',\n    closeOnOverlay: false,\n});\n\nconst emit = defineEmits<FormDialogEmits>();\ndefineSlots<FormDialogSlots>();\nconst fullscreen = ref(false);\nconst viewportWidth = ref(props.width + 48);\nconst availableWidth = computed(() => Math.max(viewportWidth.value - 48, 0));\nconst dialogWidth = computed(\n    () => `${Math.min(Math.max(props.width, props.minWidth), availableWidth.value)}px`,\n);\nconst dialogStyle = computed(() => ({\n    '--ue-form-dialog-min-width': `${props.minWidth}px`,\n}));\nconst bodyStyle = computed(() => ({\n    minHeight: `${props.minHeight - 180}px`,\n    height: fullscreen.value ? 'auto' : `${Math.max(props.height - 180, 240)}px`,\n}));\n\nwatch(\n    () => props.modelValue,\n    (visible) => {\n        if (!visible) fullscreen.value = false;\n    },\n);\n\nfunction updateViewportWidth(): void {\n    viewportWidth.value = globalThis.innerWidth || props.width + 48;\n}\n\nonMounted(() => {\n    updateViewportWidth();\n    globalThis.addEventListener('resize', updateViewportWidth);\n});\n\nonBeforeUnmount(() => {\n    globalThis.removeEventListener('resize', updateViewportWidth);\n});\n\nfunction close(): void {\n    emit('update:modelValue', false);\n}\n\nfunction handleClosed(): void {\n    emit('cancel');\n}\n</script>\n\n<style>\n.ue-form-dialog.el-dialog {\n    max-width: calc(100vw - 48px);\n    min-width: min(var(--ue-form-dialog-min-width), calc(100vw - 48px));\n    overflow: hidden;\n    color: var(--ue-color-text-primary);\n    background: var(--ue-color-page);\n    border: 1px solid var(--ue-color-border);\n    border-radius: var(--ue-radius-xl);\n    box-shadow: var(--ue-shadow-dialog);\n}\n\n.ue-form-dialog .el-dialog__header,\n.ue-form-dialog .el-dialog__footer {\n    padding: var(--ue-spacing-lg) var(--ue-spacing-xl);\n    margin: 0;\n    background: var(--ue-color-surface);\n}\n\n.ue-form-dialog .el-dialog__header {\n    border-bottom: 1px solid var(--ue-color-border-subtle);\n}\n\n.ue-form-dialog .el-dialog__footer {\n    border-top: 1px solid var(--ue-color-border-subtle);\n}\n\n.ue-form-dialog .el-dialog__body {\n    padding: 0;\n}\n</style>\n",
+      "hash": "3319fad5e551aacd34f4315c482e860e8fe19b10eaed8785f8ff033c3ffdd2f0"
+    },
+    {
+      "path": "registry/pro/form-dialog/form-dialog-types.ts",
+      "target": "{pro}/form-dialog/form-dialog-types.ts",
+      "content": "/**\n * FormDialog 的公开 Props、Emits 与 Slots 契约。\n */\n\n/** FormDialog 公开属性。 */\nexport interface FormDialogProps {\n    modelValue: boolean;\n    title: string;\n    description?: string;\n    /** 初始对话框宽度，单位为像素。 */\n    width?: number;\n    /** 非全屏状态的内容区基准高度，单位为像素。 */\n    height?: number;\n    /** 非全屏状态允许的最小宽度，仍会服从当前视口。 */\n    minWidth?: number;\n    minHeight?: number;\n    draggable?: boolean;\n    showFooter?: boolean;\n    loading?: boolean;\n    confirmText?: string;\n    cancelText?: string;\n    closeOnOverlay?: boolean;\n}\n\n/** FormDialog 公开事件。 */\nexport interface FormDialogEmits {\n    'update:modelValue': [visible: boolean];\n    confirm: [];\n    cancel: [];\n}\n\n/** FormDialog 公开插槽。 */\nexport interface FormDialogSlots {\n    default?: () => unknown;\n    footer?: () => unknown;\n}\n",
+      "hash": "3e0f2192cc569de9de9d08ed10403d481c46e9a9d177865c393061369af8d5da"
+    },
+    {
+      "path": "registry/pro/form-dialog/index.ts",
+      "target": "{pro}/form-dialog/index.ts",
+      "content": "/** UEKit 表单对话框组件公开入口。 */\n\nexport { default as FormDialog } from './FormDialog.vue';\nexport type { FormDialogEmits, FormDialogProps, FormDialogSlots } from './form-dialog-types';\n",
+      "hash": "df6194eb3d41b34b56a9a68bfae77594e0fd0e05b4f6ae7f2120a454b8584300"
+    }
+  ],
+  "compatibility": {
+    "node": ">=20.19.0",
+    "vue": ">=3.5.0",
+    "element-plus": ">=2.14.0 <3"
+  }
+}
