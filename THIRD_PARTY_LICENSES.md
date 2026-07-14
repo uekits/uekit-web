@@ -1,8 +1,8 @@
 # 第三方许可证清单
 
-> 此文件由 `pnpm licenses list` 和 `scripts/generate-third-party-licenses.mjs` 生成；不得手工编辑。
+> 此文件由 `pnpm-lock.yaml`、`scripts/third-party-license-metadata.json` 和 `scripts/generate-third-party-licenses.mjs` 生成；不得手工编辑。
 
-共复核 447 个直接或传递依赖项。依赖仍受各自许可证原文约束。
+共复核 555 个 package/version，汇总为 499 条许可证记录。依赖仍受各自许可证原文约束。
 
 | Package | Version | License |
 | --- | --- | --- |
@@ -41,6 +41,9 @@
 | @csstools/selector-specificity | 6.0.0 | MIT-0 |
 | @ctrl/tinycolor | 4.2.0 | MIT |
 | @element-plus/icons-vue | 2.3.2 | MIT |
+| @emnapi/core | 1.11.1 | MIT |
+| @emnapi/runtime | 1.11.1 | MIT |
+| @emnapi/wasi-threads | 1.2.2 | MIT |
 | @eslint-community/eslint-utils | 4.9.1 | MIT |
 | @eslint-community/regexpp | 4.12.2 | MIT |
 | @eslint/config-array | 0.23.5 | Apache-2.0 |
@@ -71,16 +74,43 @@
 | @manypkg/get-packages | 1.1.3 | MIT |
 | @microsoft/tsdoc | 0.16.0 | MIT |
 | @microsoft/tsdoc-config | 0.18.1 | MIT |
+| @napi-rs/wasm-runtime | 1.1.6 | MIT |
 | @nodelib/fs.scandir | 2.1.5 | MIT |
 | @nodelib/fs.stat | 2.0.5 | MIT |
 | @nodelib/fs.walk | 1.2.8 | MIT |
 | @one-ini/wasm | 0.1.1 | MIT |
 | @oxc-project/types | 0.139.0 | MIT |
 | @parcel/watcher | 2.5.6 | MIT |
+| @parcel/watcher-android-arm64 | 2.5.6 | MIT |
 | @parcel/watcher-darwin-arm64 | 2.5.6 | MIT |
+| @parcel/watcher-darwin-x64 | 2.5.6 | MIT |
+| @parcel/watcher-freebsd-x64 | 2.5.6 | MIT |
+| @parcel/watcher-linux-arm-glibc | 2.5.6 | MIT |
+| @parcel/watcher-linux-arm-musl | 2.5.6 | MIT |
+| @parcel/watcher-linux-arm64-glibc | 2.5.6 | MIT |
+| @parcel/watcher-linux-arm64-musl | 2.5.6 | MIT |
+| @parcel/watcher-linux-x64-glibc | 2.5.6 | MIT |
+| @parcel/watcher-linux-x64-musl | 2.5.6 | MIT |
+| @parcel/watcher-win32-arm64 | 2.5.6 | MIT |
+| @parcel/watcher-win32-ia32 | 2.5.6 | MIT |
+| @parcel/watcher-win32-x64 | 2.5.6 | MIT |
 | @pkgjs/parseargs | 0.11.0 | MIT |
 | @playwright/test | 1.61.1 | Apache-2.0 |
+| @rolldown/binding-android-arm64 | 1.1.5 | MIT |
 | @rolldown/binding-darwin-arm64 | 1.1.5 | MIT |
+| @rolldown/binding-darwin-x64 | 1.1.5 | MIT |
+| @rolldown/binding-freebsd-x64 | 1.1.5 | MIT |
+| @rolldown/binding-linux-arm-gnueabihf | 1.1.5 | MIT |
+| @rolldown/binding-linux-arm64-gnu | 1.1.5 | MIT |
+| @rolldown/binding-linux-arm64-musl | 1.1.5 | MIT |
+| @rolldown/binding-linux-ppc64-gnu | 1.1.5 | MIT |
+| @rolldown/binding-linux-s390x-gnu | 1.1.5 | MIT |
+| @rolldown/binding-linux-x64-gnu | 1.1.5 | MIT |
+| @rolldown/binding-linux-x64-musl | 1.1.5 | MIT |
+| @rolldown/binding-openharmony-arm64 | 1.1.5 | MIT |
+| @rolldown/binding-wasm32-wasi | 1.1.5 | MIT |
+| @rolldown/binding-win32-arm64-msvc | 1.1.5 | MIT |
+| @rolldown/binding-win32-x64-msvc | 1.1.5 | MIT |
 | @rolldown/pluginutils | 1.0.1 | MIT |
 | @rollup/pluginutils | 5.4.0 | MIT |
 | @sindresorhus/merge-streams | 4.0.0 | MIT |
@@ -88,8 +118,20 @@
 | @sxzz/popperjs-es | 2.11.8 | MIT |
 | @tailwindcss/node | 4.3.2 | MIT |
 | @tailwindcss/oxide | 4.3.2 | MIT |
+| @tailwindcss/oxide-android-arm64 | 4.3.2 | MIT |
 | @tailwindcss/oxide-darwin-arm64 | 4.3.2 | MIT |
+| @tailwindcss/oxide-darwin-x64 | 4.3.2 | MIT |
+| @tailwindcss/oxide-freebsd-x64 | 4.3.2 | MIT |
+| @tailwindcss/oxide-linux-arm-gnueabihf | 4.3.2 | MIT |
+| @tailwindcss/oxide-linux-arm64-gnu | 4.3.2 | MIT |
+| @tailwindcss/oxide-linux-arm64-musl | 4.3.2 | MIT |
+| @tailwindcss/oxide-linux-x64-gnu | 4.3.2 | MIT |
+| @tailwindcss/oxide-linux-x64-musl | 4.3.2 | MIT |
+| @tailwindcss/oxide-wasm32-wasi | 4.3.2 | MIT |
+| @tailwindcss/oxide-win32-arm64-msvc | 4.3.2 | MIT |
+| @tailwindcss/oxide-win32-x64-msvc | 4.3.2 | MIT |
 | @tailwindcss/vite | 4.3.2 | MIT |
+| @tybys/wasm-util | 0.10.3 | MIT |
 | @types/chai | 5.2.3 | MIT |
 | @types/deep-eql | 4.0.2 | MIT |
 | @types/esrecurse | 4.3.1 | MIT |
@@ -195,7 +237,7 @@
 | echarts | 6.1.0 | Apache-2.0 |
 | editorconfig | 1.0.7 | MIT |
 | element-plus | 2.14.2 | MIT |
-| emoji-regex | 8.0.0, 9.2.2, 10.6.0 | MIT |
+| emoji-regex | 10.6.0, 8.0.0, 9.2.2 | MIT |
 | enhanced-resolve | 5.21.6 | MIT |
 | enquirer | 2.4.1 | MIT |
 | entities | 4.3.0, 7.0.1 | BSD-2-Clause |
@@ -230,7 +272,7 @@
 | fastest-levenshtein | 1.0.16 | MIT |
 | fastq | 1.20.1 | ISC |
 | fdir | 6.5.0 | MIT |
-| file-entry-cache | 8.0.0, 11.1.5 | MIT |
+| file-entry-cache | 11.1.5, 8.0.0 | MIT |
 | fill-range | 7.1.1 | MIT |
 | find-up | 4.1.0, 5.0.0 | MIT |
 | flat-cache | 4.0.0, 6.1.23 | MIT |
@@ -294,7 +336,17 @@
 | kolorist | 1.8.0 | MIT |
 | levn | 0.4.1 | MIT |
 | lightningcss | 1.32.0 | MPL-2.0 |
+| lightningcss-android-arm64 | 1.32.0 | MPL-2.0 |
 | lightningcss-darwin-arm64 | 1.32.0 | MPL-2.0 |
+| lightningcss-darwin-x64 | 1.32.0 | MPL-2.0 |
+| lightningcss-freebsd-x64 | 1.32.0 | MPL-2.0 |
+| lightningcss-linux-arm-gnueabihf | 1.32.0 | MPL-2.0 |
+| lightningcss-linux-arm64-gnu | 1.32.0 | MPL-2.0 |
+| lightningcss-linux-arm64-musl | 1.32.0 | MPL-2.0 |
+| lightningcss-linux-x64-gnu | 1.32.0 | MPL-2.0 |
+| lightningcss-linux-x64-musl | 1.32.0 | MPL-2.0 |
+| lightningcss-win32-arm64-msvc | 1.32.0 | MPL-2.0 |
+| lightningcss-win32-x64-msvc | 1.32.0 | MPL-2.0 |
 | lines-and-columns | 1.2.4 | MIT |
 | lint-staged | 16.4.0 | MIT |
 | listr2 | 9.0.5 | MIT |
@@ -421,7 +473,7 @@
 | tinyrainbow | 3.1.0 | MIT |
 | to-regex-range | 5.0.1 | MIT |
 | ts-api-utils | 2.5.0 | MIT |
-| tslib | 2.3.0 | 0BSD |
+| tslib | 2.3.0, 2.8.1 | 0BSD |
 | type-check | 0.4.0 | MIT |
 | typescript | 6.0.3 | Apache-2.0 |
 | typescript-eslint | 8.63.0 | MIT |
@@ -447,7 +499,7 @@
 | which | 1.3.1, 2.0.1 | ISC |
 | why-is-node-running | 2.3.0 | MIT |
 | word-wrap | 1.2.5 | MIT |
-| wrap-ansi | 7.0.0, 9.0.2 | MIT |
+| wrap-ansi | 7.0.0, 8.1.0, 9.0.2 | MIT |
 | write-file-atomic | 7.0.1 | ISC |
 | ws | 8.21.0 | MIT |
 | xml-name-validator | 4.0.0 | Apache-2.0 |
