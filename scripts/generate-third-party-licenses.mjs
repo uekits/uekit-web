@@ -106,7 +106,7 @@ function readInstalledLicenses() {
  */
 async function fetchLicense(dependency) {
     const packagePath = dependency.name.startsWith('@')
-        ? dependency.name.replace('/', '%2F')
+        ? dependency.name.replaceAll('/', '%2F')
         : dependency.name;
     const response = await fetch(
         `${registryBaseUrl}/${packagePath}/${encodeURIComponent(dependency.version)}`,
