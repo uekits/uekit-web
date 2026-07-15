@@ -4,7 +4,15 @@ UEKit Web 的重要变更记录在此文件中，版本遵循 Semantic Versionin
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-07-15
+
+### Fixed
+
+- 修复 `actions/setup-node` 的 npm 认证占位值导致 OIDC-only 发布门禁误报的问题。
+
 ## [0.1.1] - 2026-07-15
+
+> 此版本因发布工作流验证失败而未发布，后续修复包含在 `0.1.2` 中。
 
 ### Changed
 

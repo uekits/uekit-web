@@ -14,6 +14,8 @@ registry.uekit.com/web/v1/*  Registry 静态源码协议
 - [版本升级与回滚](./releasing/版本升级与回滚.md)
 - [发布前验收清单](./testing/发布前验收清单.md)
 
+当前稳定版本为 [`v0.1.2`](https://github.com/uekits/uekit-web/releases/tag/v0.1.2)，npm 的 `latest` 与 `next` Dist Tag 均指向 `0.1.2`。`0.1.1` 因发布工作流验证失败而未发布。
+
 ## 发布底线
 
 - Registry 协议 v1 固定在 `/web/v1`，条目版本独立管理。

@@ -1,6 +1,14 @@
 # @uekits/web
 
+## 0.1.2
+
+### Patch Changes
+
+- 修复 `actions/setup-node` 的 npm 认证占位值导致 OIDC-only 发布门禁误报的问题。
+
 ## 0.1.1
+
+> 此版本因发布工作流验证失败而未发布，后续修复包含在 `0.1.2` 中。
 
 ### Patch Changes
 

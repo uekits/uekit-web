@@ -65,8 +65,8 @@ npm pack --dry-run
 
 `.github/workflows/release.yml` 通过手工触发，支持：
 
-- `next`：预发布和首次公开验证。
-- `latest`：稳定发布。
+- `next`：将一个尚未发布的新版本发布到候选通道。
+- `latest`：将一个尚未发布的新版本直接发布到稳定通道。
 
 工作流只接受 `main` 或与 CLI 版本一致的 `v<semver>` Tag；其他 Ref 即使手工选择也不会运行。npm CLI 使用仓库固定版本，不允许发布时安装漂移的 `npm@latest`。
 
@@ -79,15 +79,31 @@ npm pack --dry-run
 3. 使用 `pnpm changeset publish --tag <tag>`。
 4. 通过 OIDC 生成 npm Provenance。
 
+工作流只负责发布尚未存在的新版本。`Ensure package version is unpublished` 门禁会拒绝重新发布已经存在的版本，因此不能通过重新运行工作流把同一个版本从 `next` 提升到 `latest`。
+
 如果环境中存在 `NODE_TLS_REJECT_UNAUTHORIZED=0`，安全检查、包校验和 tarball 冒烟会直接失败，禁止绕过 TLS 证书验证。
 
-## 6. 首次发布建议
+## 6. 候选发布与稳定提升
 
-1. 先发布 `0.1.0` 到 `next`。
+1. 通过受保护的版本 Tag 将新版本发布到 `next`。
 2. 在干净项目执行 `pnpm dlx @uekits/web@next init`。
-3. 验证公开 Registry。
-4. 确认 npm 页面、README 和许可证；首次手工发布不具备 OIDC Provenance，必须由后续 GitHub Actions 版本验证。
-5. 稳定后再发布或提升 `latest`。
+3. 验证公开 Registry、npm Provenance、类型检查和生产构建。
+4. 稳定后使用 npm Dist Tag 将同一不可变版本提升为 `latest`。
+
+以 `0.1.2` 为例：
+
+```bash
+npm dist-tag add @uekits/web@0.1.2 latest
+```
+
+修改 Dist Tag 是 npm 包元数据操作，不会重新上传 tarball，也不会改变既有 Provenance。该操作需要包所有者身份和 2FA；不要为此创建长期 npm Token。
+
+每次发布或提升后必须以 npm Registry 的实际结果为准：
+
+```bash
+npm dist-tag ls @uekits/web
+npm view @uekits/web@latest version
+```
 
 首次创建包后必须以 `npm dist-tag ls @uekits/web` 的实际结果为准。Registry 可能在首个且唯一版本上同时保留 `latest`；不要仅根据 `npm publish --tag next` 推断 Dist Tag 状态。后续发布到 `next` 时，`latest` 应继续指向已经验收的稳定版本。
 
@@ -102,9 +118,13 @@ npm view @uekits/web --json
 真实执行：
 
 ```bash
+pnpm dlx @uekits/web@latest --version
+pnpm dlx @uekits/web@latest list
 pnpm dlx @uekits/web@next --version
 pnpm dlx @uekits/web@next list
 ```
+
+检查 `dist.attestations` 或在干净消费项目执行 `npm audit signatures`，确认 Registry 签名和 Provenance 可以验证。
 
 ## 8. npm 回滚原则
 
@@ -116,6 +136,6 @@ npm 已发布版本原则上不可覆盖。发现问题时：
 - 不依赖 unpublish 作为常规回滚。
 
 ```bash
-npm deprecate @uekits/web@0.1.0 "该版本存在已知问题，请升级。"
-npm dist-tag add @uekits/web@0.1.1 latest
+npm deprecate '@uekits/web@<故障版本>' "该版本存在已知问题，请升级。"
+npm dist-tag add '@uekits/web@<稳定版本>' latest
 ```
