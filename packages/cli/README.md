@@ -9,6 +9,12 @@ pnpm dlx @uekits/web@latest add avatar pro-table
 
 CLI 从 `https://registry.uekit.com/web/v1/` 读取带版本的源码定义。安装后的文件归调用方项目所有，可以本地阅读、修改、比较和升级。
 
+`latest` 是经过完整消费验证的稳定通道，`next` 用于发布候选验证。自动化环境应固定明确版本，避免未评估升级：
+
+```bash
+pnpm dlx @uekits/web@0.1.0 --version
+```
+
 环境要求：Node.js 20.19 或更高版本，以及 Vue 3 + Vite 项目。
 
 ## 主要命令
