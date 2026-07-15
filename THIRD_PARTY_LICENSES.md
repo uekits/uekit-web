@@ -236,7 +236,7 @@
 | eastasianwidth | 0.2.0 | MIT |
 | echarts | 6.1.0 | Apache-2.0 |
 | editorconfig | 1.0.7 | MIT |
-| element-plus | 2.14.2 | MIT |
+| element-plus | 2.14.3 | MIT |
 | emoji-regex | 10.6.0, 8.0.0, 9.2.2 | MIT |
 | enhanced-resolve | 5.21.6 | MIT |
 | enquirer | 2.4.1 | MIT |
