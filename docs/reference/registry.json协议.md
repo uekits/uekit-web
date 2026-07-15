@@ -42,7 +42,12 @@
   "devDependencies": [],
   "registryDependencies": ["theme"],
   "compatibility": {},
-  "files": []
+  "files": [
+    {
+      "path": "registry/ui/button/Button.vue",
+      "target": "{ui}/button/Button.vue"
+    }
+  ]
 }
 ```
 
@@ -82,7 +87,7 @@
 | 字段      |   必填 | 说明                              |
 | --------- | -----: | --------------------------------- |
 | `path`    |     是 | 相对仓库根目录的源文件路径        |
-| `target`  |     是 | 调用方目标路径，可用 alias 占位符 |
+| `target`  |     是 | 消费项目目标路径，可用 alias 占位符 |
 | `content` | 构建后 | 源码正文                          |
 | `hash`    | 构建后 | 源码 SHA-256                      |
 
@@ -100,7 +105,7 @@
 {styles}
 ```
 
-它们由调用方 `uekit.json.aliases` 解析。
+它们由消费项目 `uekit.json.aliases` 解析。
 
 ## 5. 依赖版本写法
 
@@ -140,6 +145,9 @@ Schema 之外还会检查：
 - 不同条目不会产生非法重复目标。
 - URL 与名称、版本严格一致。
 - 已归档的同名同版本内容不可覆盖。
+- 单个条目最多包含 100 个文件，单个文件内容最大为 1 MiB。
+
+远端读取还会限制单个响应最多 5 MiB、请求超时 15 秒，并拒绝带用户名或密码的 URL、非回环 HTTP 地址以及不安全重定向。Index 中的名称、版本和 URL 必须与最终条目响应完全一致。
 
 ## 8. 协议变更
 

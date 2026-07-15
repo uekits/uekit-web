@@ -137,10 +137,17 @@ pnpm dlx @uekits/web@latest build
 | 选项              | 说明               |
 | ----------------- | ------------------ |
 | `--cwd <path>`    | UEKit Web 仓库目录 |
-| `--output <path>` | 自定义输出目录     |
+| `--output <path>` | 仓库内部的自定义输出目录 |
 | `--release`       | 归档新的不可变条目版本后构建 |
 
 该命令主要用于 UEKit Web 仓库和兼容的私有 Registry 维护者。
+
+为避免递归删除任意目录，`--output` 受到以下限制：
+
+- 输出目录必须位于 `--cwd` 指定的仓库内部；
+- `/`、Home、仓库根目录和通过符号链接越出仓库的路径会被拒绝；
+- 已存在的输出目录必须包含内容有效的 `.uekit-registry-output` 标记；
+- CLI 只会清理自己创建并明确标记的 Registry 构建目录。
 
 ## 11. cat
 
@@ -170,7 +177,9 @@ pnpm dlx @uekits/web@latest add button \
   --registry /absolute/path/to/registry-output
 ```
 
-也可在项目配置或命令行中使用相对项目目录的 `file:../registry-output`。非回环地址的 HTTP Registry 会被拒绝。
+也可在项目配置或命令行中使用相对消费项目目录的 `file:../registry-output`。非回环地址的 HTTP Registry 会被拒绝。
+
+远端 Registry URL 不能包含用户名或密码，请求超时为 15 秒，单个响应最大为 5 MiB。
 
 ## 13. 退出码
 
