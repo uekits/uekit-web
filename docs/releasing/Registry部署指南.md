@@ -29,6 +29,8 @@ uekits.github.io
 
 推送到 `main` 且变更 Registry、CLI 构建器、Schema、Registry Server 或部署工作流时自动触发，也可以手工 `workflow_dispatch`。无论哪种入口，工作流都只允许 `main` Ref 构建和部署；从其他分支手工触发会被跳过。
 
+正式发布时，Registry 部署由 `dev → main` 的 Merge Commit 触发。必须等待 Pages 和自定义域名验证成功后再创建 npm 版本 Tag；Tag 发布工作流还会比较生产 Registry 与当前构建产物，二者不一致时拒绝发布 npm。
+
 ## 4. 工作流过程
 
 ```text
@@ -79,7 +81,7 @@ pnpm dlx @uekits/web@0.1.2 list
 
 当前公开路径是 `/web/v1`，其中 `v1` 是协议版本，不等于组件版本。索引指向 `items/<name>/<version>.json`，历史版本随站点持续保留。
 
-修改 Registry 源码后必须提升条目版本并执行 `pnpm registry:release`。构建器会拒绝同版本内容变化和未归档版本，避免缓存污染与不可重复安装。
+修改 Registry 源码后必须提升受影响条目版本并执行 `pnpm registry:release`。CLI-only、文档或不改变 Registry 源码的发布不得无条件提升全部条目版本。构建器会拒绝同版本内容变化和未归档版本，避免缓存污染与不可重复安装。
 
 ## 8. 故障回滚
 

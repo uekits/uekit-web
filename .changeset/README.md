@@ -1,16 +1,11 @@
 # Changesets 使用说明
 
-Changeset 用于描述 `@uekits/web` 面向使用者的变化，并驱动 npm 版本和变更日志。
+Changeset 用于描述 `@uekits/web` 面向使用者的变化，并驱动 npm 版本更新。
 
-有以下变化时需要创建 Changeset：
-
-- 新增或修改公开 CLI 命令。
-- 修改安装、覆盖、升级或合并行为。
-- 修改公开配置或 Registry 协议兼容性。
-- 修复已经发布版本中的用户可见缺陷。
+新增或修改公开 CLI、安装升级行为、配置协议以及已发布功能时，应在 `dev` 随实现提交 Changeset：
 
 ```bash
 pnpm changeset
 ```
 
-仅修改内部文档、测试或不影响发布包的重构通常不需要 Changeset。是否发布仍以发布负责人和[发布前验收清单](../docs/testing/发布前验收清单.md)为准。
+准备发布时执行 `pnpm version-packages`，然后人工更新根目录 `CHANGELOG.md`。仅修改内部文档、测试或无公开影响的重构通常不需要 Changeset。完整流程见[发布前验收清单](../docs/testing/发布前验收清单.md)。

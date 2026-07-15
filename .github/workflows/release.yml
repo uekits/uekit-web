@@ -1,16 +1,9 @@
-name: Release npm Package
+name: 发布 npm 包
 
 on:
-    workflow_dispatch:
-        inputs:
-            dist_tag:
-                description: npm dist-tag used for this release
-                required: true
-                default: next
-                type: choice
-                options:
-                    - next
-                    - latest
+    push:
+        tags:
+            - 'v*'
 
 permissions:
     contents: read
@@ -21,90 +14,122 @@ concurrency:
 
 jobs:
     publish:
-        if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
         runs-on: ubuntu-latest
+        outputs:
+            dist_tag: ${{ steps.release.outputs.dist_tag }}
+            package_version: ${{ steps.release.outputs.package_version }}
         environment:
             name: npm
         permissions:
             contents: read
             id-token: write
         steps:
-            - name: Checkout
+            - name: 检出代码
               uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+              with:
+                  fetch-depth: 0
 
-            - name: Validate release source
+            - name: 校验发布 Tag 和来源
+              id: release
               shell: bash
               run: |
                   set -euo pipefail
-                  DIST_TAG="${{ inputs.dist_tag }}"
                   PACKAGE_VERSION="$(node -p "require('./packages/cli/package.json').version")"
 
-                  if [[ "$GITHUB_REF" == "refs/heads/main" ]]; then
-                      if [[ "$DIST_TAG" == "latest" ]]; then
-                          echo "latest releases require a protected version tag." >&2
-                          exit 1
-                      fi
-                      exit 0
-                  fi
-                  if [[ ! "$GITHUB_REF" =~ ^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
-                      echo "npm releases are restricted to main or semantic version tags." >&2
-                      exit 1
-                  fi
-                  if [[ "$GITHUB_REF" != "refs/tags/v${PACKAGE_VERSION}" ]]; then
-                      echo "Tag ${GITHUB_REF#refs/tags/} does not match package version ${PACKAGE_VERSION}." >&2
-                      exit 1
-                  fi
-                  if [[ "$DIST_TAG" == "latest" && "$PACKAGE_VERSION" == *-* ]]; then
-                      echo "Prerelease versions cannot be published to latest." >&2
+                  if [[ "$GITHUB_REF_NAME" != "v${PACKAGE_VERSION}" ]]; then
+                      echo "发布 Tag ${GITHUB_REF_NAME} 与包版本 ${PACKAGE_VERSION} 不一致。" >&2
                       exit 1
                   fi
 
-            - name: Refuse disabled TLS verification
+                  git fetch --no-tags origin main
+                  MAIN_SHA="$(git rev-parse origin/main)"
+                  if [[ "$GITHUB_SHA" != "$MAIN_SHA" ]]; then
+                      echo "发布 Tag 必须指向最新 main 提交 ${MAIN_SHA}。" >&2
+                      exit 1
+                  fi
+
+                  if [[ "$PACKAGE_VERSION" == *-* ]]; then
+                      DIST_TAG="next"
+                  else
+                      DIST_TAG="latest"
+                  fi
+
+                  echo "dist_tag=${DIST_TAG}" >> "$GITHUB_OUTPUT"
+                  echo "package_version=${PACKAGE_VERSION}" >> "$GITHUB_OUTPUT"
+                  echo "准备发布 @uekits/web@${PACKAGE_VERSION} 到 ${DIST_TAG}。"
+
+            - name: 拒绝关闭 TLS 证书校验
               run: node scripts/check-secure-environment.mjs
 
-            - name: Set up pnpm
+            - name: 配置 pnpm
               uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
 
-            - name: Set up Node.js
+            - name: 配置 Node.js
               uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
               with:
                   node-version-file: .node-version
                   package-manager-cache: false
 
-            - name: Install pinned npm for OIDC trusted publishing
+            - name: 安装固定版本的 npm
               run: npm install --global npm@11.18.0
 
-            - name: Require OIDC-only publishing
+            - name: 强制使用 OIDC 发布
               shell: bash
               run: |
                   set -euo pipefail
                   if [[ -n "${NODE_AUTH_TOKEN:-}" || -n "${NPM_TOKEN:-}" ]]; then
-                      echo "Traditional npm publish tokens are forbidden; use OIDC trusted publishing." >&2
+                      echo "禁止使用传统 npm Token，请使用 OIDC Trusted Publishing。" >&2
                       exit 1
                   fi
 
-            - name: Ensure package version is unpublished
-              shell: bash
-              run: |
-                  set -euo pipefail
-                  PACKAGE_VERSION="$(node -p "require('./packages/cli/package.json').version")"
-                  PACKAGE_SPEC="@uekits/web@${PACKAGE_VERSION}"
-                  if OUTPUT="$(npm view "$PACKAGE_SPEC" version 2>&1)"; then
-                      echo "${PACKAGE_SPEC} is already published and cannot be overwritten." >&2
-                      exit 1
-                  fi
-                  if ! grep -Eq 'E404|404 Not Found' <<<"$OUTPUT"; then
-                      echo "$OUTPUT" >&2
-                      exit 1
-                  fi
-
-            - name: Install dependencies
+            - name: 安装依赖
               run: pnpm install --frozen-lockfile
 
-            - name: Verify release candidate
-              run: pnpm check && pnpm smoke:package
+            - name: 验证发布元数据
+              run: pnpm release:verify -- --allow-current-tag
 
-            - name: Publish changed packages
-              run: pnpm changeset publish --tag "${{ inputs.dist_tag }}"
+            - name: 验证生产 Registry 与发布候选一致
+              run: >-
+                  node scripts/verify-registry.mjs
+                  --url https://registry.uekit.com/web/v1
+                  --expected-dir apps/registry-server/dist/web/v1
+
+            - name: 验证 pnpm 和 npm tarball 消费链
+              run: pnpm smoke:package
+
+            - name: 发布 npm 包
+              run: pnpm changeset publish --tag "${{ steps.release.outputs.dist_tag }}"
               env:
                   NPM_CONFIG_PROVENANCE: 'true'
+
+    github-release:
+        needs: publish
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - name: 创建 GitHub Release
+              shell: bash
+              env:
+                  GH_TOKEN: ${{ github.token }}
+                  DIST_TAG: ${{ needs.publish.outputs.dist_tag }}
+                  PACKAGE_VERSION: ${{ needs.publish.outputs.package_version }}
+              run: |
+                  set -euo pipefail
+                  if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+                      echo "GitHub Release ${GITHUB_REF_NAME} 已存在。"
+                      exit 0
+                  fi
+
+                  ARGS=(
+                      "$GITHUB_REF_NAME"
+                      --repo "$GITHUB_REPOSITORY"
+                      --title "UEKit Web v${PACKAGE_VERSION}"
+                      --generate-notes
+                  )
+                  if [[ "$DIST_TAG" == "next" ]]; then
+                      ARGS+=(--prerelease)
+                  else
+                      ARGS+=(--latest)
+                  fi
+                  gh release create "${ARGS[@]}"

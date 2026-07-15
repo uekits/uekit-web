@@ -37,12 +37,12 @@
         "licenses:generate": "node scripts/generate-third-party-licenses.mjs",
         "licenses:check": "node scripts/generate-third-party-licenses.mjs --check",
         "docs:verify": "node scripts/verify-docs.mjs",
+        "release:verify": "node scripts/verify-release.mjs",
         "test": "vitest run",
         "test:e2e": "playwright test",
         "check": "corepack pnpm security:check && corepack pnpm licenses:check && corepack pnpm format:check && corepack pnpm docs:verify && corepack pnpm check:file-headers && corepack pnpm lint && corepack pnpm lint:styles && corepack pnpm typecheck && corepack pnpm test && corepack pnpm build && corepack pnpm registry:verify && corepack pnpm playground:verify && corepack pnpm upgrade:verify && corepack pnpm package:check",
         "changeset": "changeset",
         "version-packages": "changeset version",
-        "release": "corepack pnpm security:check && changeset publish",
         "cli": "node packages/cli/dist/index.js"
     },
     "devDependencies": {
@@ -67,6 +67,7 @@
         "postcss-html": "^1.8.1",
         "prettier": "^3.8.3",
         "sass": "^1.101.0",
+        "semver": "^7.7.3",
         "stylelint": "^17.14.0",
         "stylelint-config-standard-scss": "^17.0.0",
         "typescript": "^6.0.3",
