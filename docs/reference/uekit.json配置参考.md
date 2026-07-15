@@ -1,6 +1,6 @@
 # `uekit.json` 配置参考
 
-`uekit.json` 位于调用方项目根目录，描述 CLI 如何安装源码。
+`uekit.json` 位于消费项目根目录，描述 CLI 如何安装源码。
 
 ## 1. 默认配置
 
@@ -72,7 +72,7 @@ CLI 从根地址读取 `index.json`，再获取索引声明的不可变版本资
 
 ## 5. theme
 
-`theme.css` 是 CLI 安装 `theme` 条目的目标，也是 `init` 注入应用入口的路径。
+`uekit.css` 是 CLI 安装 `theme` 条目的默认目标，也是 `init` 注入应用入口的路径。
 
 已有项目可以调整路径，但应确保：
 

@@ -1,4 +1,4 @@
-name: Deploy Registry
+name: 部署 Registry
 
 on:
     push:
@@ -34,35 +34,35 @@ jobs:
         if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
+            - name: 检出代码
               uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
-            - name: Refuse disabled TLS verification
+            - name: 拒绝关闭 TLS 证书校验
               run: node scripts/check-secure-environment.mjs
 
-            - name: Set up pnpm
+            - name: 配置 pnpm
               uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
 
-            - name: Set up Node.js
+            - name: 配置 Node.js
               uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
               with:
                   node-version-file: .node-version
                   cache: pnpm
                   package-manager-cache: false
 
-            - name: Install dependencies
+            - name: 安装依赖
               run: pnpm install --frozen-lockfile
 
-            - name: Build Registry
+            - name: 构建 Registry
               run: pnpm registry:build
 
-            - name: Verify Registry artifact
+            - name: 验证 Registry 构建产物
               run: pnpm registry:verify
 
-            - name: Configure GitHub Pages
+            - name: 配置 GitHub Pages
               uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
 
-            - name: Upload GitHub Pages artifact
+            - name: 上传 GitHub Pages 构建产物
               uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
               with:
                   path: apps/registry-server/dist
@@ -75,19 +75,19 @@ jobs:
             name: github-pages
             url: ${{ steps.deployment.outputs.page_url }}
         steps:
-            - name: Deploy GitHub Pages
+            - name: 部署 GitHub Pages
               id: deployment
               uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
 
-            - name: Checkout verification script
+            - name: 检出线上验证脚本
               uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
-            - name: Verify deployed Registry
+            - name: 验证 Pages Registry
               env:
                   PAGE_URL: ${{ steps.deployment.outputs.page_url }}
               run: |
                   REGISTRY_URL="${PAGE_URL%/}/web/v1"
                   node scripts/verify-registry.mjs --url "$REGISTRY_URL"
 
-            - name: Verify custom Registry domain
+            - name: 验证自定义 Registry 域名
               run: node scripts/verify-registry.mjs --url https://registry.uekit.com/web/v1

@@ -7,7 +7,7 @@ Registry 是组件元数据和标准源码的分发协议。它回答：
 - 有哪些可安装条目。
 - 条目属于哪一层。
 - 条目依赖哪些 npm 包和其他条目。
-- 哪些文件应写到调用方的哪个目录。
+- 哪些文件应写到消费项目的哪个目录。
 - 条目要求哪些运行环境和依赖版本。
 
 ## 2. 源数据与生成物
@@ -75,7 +75,7 @@ Schema 校验
 "dependencies": ["element-plus@^2.14.0"]
 ```
 
-安装后写入调用方 `dependencies`。
+安装后写入消费项目 `dependencies`。
 
 ### npm 开发依赖
 
@@ -83,7 +83,7 @@ Schema 校验
 "devDependencies": ["tailwindcss@^4.3.0"]
 ```
 
-安装后写入调用方 `devDependencies`。
+安装后写入消费项目 `devDependencies`。
 
 ### Registry 依赖
 
@@ -95,13 +95,13 @@ CLI 会递归获取和安装。依赖图必须是有向无环图。
 
 ## 6. 路径占位符
 
-目标路径可以使用调用方 `uekit.json` 的 alias 占位符：
+目标路径可以使用消费项目 `uekit.json` 的 Alias 占位符：
 
 ```json
 "target": "{pro}/pro-table/ProTable.vue"
 ```
 
-CLI 将其解析为 `src/components/pro/pro-table/ProTable.vue`。源码内部的 UEKit 别名也会根据调用方配置改写。
+CLI 将其解析为 `src/components/pro/pro-table/ProTable.vue`。源码内部的 UEKit 别名也会根据消费项目配置改写。
 
 ## 7. 兼容性
 

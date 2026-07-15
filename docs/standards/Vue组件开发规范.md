@@ -54,7 +54,7 @@ const emit = defineEmits<{
 
 - 根交互元素应正确透传 `$attrs`。
 - 不需要额外包装时避免无意义 DOM。
-- 保持可预测的 `data-slot` 或稳定类名，便于调用方定制。
+- 保持可预测的 `data-slot` 或稳定类名，便于消费方定制。
 - 不把 Element Plus 私有 DOM 结构当成长期 API。
 
 ## 6. 可访问性
@@ -95,7 +95,7 @@ const emit = defineEmits<{
 
 ## 10. 类型导出
 
-组件对外需要的 Props、列定义、状态类型等从 `index.ts` 导出。不要让调用方导入组件内部深层文件。
+组件对外需要的 Props、列定义、状态类型等从 `index.ts` 导出。不要让消费方导入组件内部深层文件。
 
 ## 11. 注释
 

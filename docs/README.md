@@ -7,10 +7,11 @@
 ### 产品负责人和技术负责人
 
 1. [UEKit Web 技术白皮书](./UEKit-Web技术白皮书.md)
-2. [整体架构](./architecture/整体架构.md)
-3. [源码安装与升级机制](./architecture/源码安装与升级机制.md)
-4. [组件分层与命名规范](./standards/组件分层与命名规范.md)
-5. [版本升级与回滚](./releasing/版本升级与回滚.md)
+2. [当前状态与 Roadmap](../README.md#当前状态)
+3. [整体架构](./architecture/整体架构.md)
+4. [源码安装与升级机制](./architecture/源码安装与升级机制.md)
+5. [组件分层与命名规范](./standards/组件分层与命名规范.md)
+6. [版本升级与回滚](./releasing/版本升级与回滚.md)
 
 ### 组件开发人员
 
@@ -93,10 +94,12 @@ docs/
 - [Registry 部署指南](./releasing/Registry部署指南.md)
 - [npm 发布指南](./releasing/npm发布指南.md)
 - [版本升级与回滚](./releasing/版本升级与回滚.md)
+- [Changelog](../CHANGELOG.md)
 
 ## 文档维护原则
 
 - 默认使用中文说明；代码标识、协议字段和命令保持原文。
 - 文档必须描述仓库中已经存在的行为，规划内容必须显式标注“规划中”。
 - 修改 CLI、Registry 协议、配置文件或发布流程时，必须同步修改对应参考文档。
+- 当前版本、能力边界和 Roadmap 以根 README 为唯一公开事实来源，其他文档通过链接引用，不重复维护时间表。
 - 所有 Markdown 内部链接必须通过 `pnpm docs:verify` 校验。

@@ -2,7 +2,7 @@
  * 构建后 Registry 的协议、条目内容和摘要一致性检查。
  *
  * @remarks
- * 可校验本地目录或带重试的远端地址，两种来源必须且只能选择一种。
+ * 可校验本地目录或带重试的远端地址；远端校验可额外要求与本地发布候选完全一致。
  */
 
 import { createHash } from 'node:crypto';
@@ -20,8 +20,12 @@ for (let index = 2; index < process.argv.length; index += 2) {
 
 const directory = argumentsMap.get('--dir');
 const baseUrl = argumentsMap.get('--url');
+const expectedDirectory = argumentsMap.get('--expected-dir');
 if ((!directory && !baseUrl) || (directory && baseUrl)) {
     throw new Error('请且仅提供 --dir <directory> 或 --url <base-url>。');
+}
+if (expectedDirectory && !baseUrl) {
+    throw new Error('--expected-dir 只能与 --url 一起使用。');
 }
 
 function hash(content) {
@@ -46,7 +50,14 @@ async function readResource(name) {
         try {
             const response = await fetch(url, { signal: AbortSignal.timeout(15_000) });
             if (response.ok) {
-                return response.text();
+                const content = await response.text();
+                if (expectedDirectory) {
+                    const expected = await readFile(path.resolve(expectedDirectory, name), 'utf8');
+                    if (content !== expected) {
+                        throw new Error(`线上 Registry 与发布候选不一致：${name}`);
+                    }
+                }
+                return content;
             }
             lastError = new Error(`${response.status} ${response.statusText}`);
         } catch (error) {
