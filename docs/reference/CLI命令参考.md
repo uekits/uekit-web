@@ -9,7 +9,7 @@ pnpm dlx @uekits/web@latest <command>
 团队和 CI 推荐固定版本：
 
 ```bash
-pnpm dlx @uekits/web@0.1.0 <command>
+pnpm dlx @uekits/web@0.1.2 <command>
 ```
 
 npm 包名为 `@uekits/web`，可执行文件名为 `uekit-web`。
