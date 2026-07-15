@@ -49,7 +49,7 @@
         "@changesets/cli": "^2.31.0",
         "@eslint/js": "^10.0.1",
         "@playwright/test": "^1.57.0",
-        "@types/node": "^22.0.0",
+        "@types/node": "^26.1.1",
         "@amap/amap-jsapi-loader": "catalog:",
         "@lucide/vue": "catalog:",
         "@vue/test-utils": "^2.4.6",
