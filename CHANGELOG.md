@@ -4,6 +4,15 @@ UEKit Web 的重要变更记录在此文件中，版本遵循 Semantic Versionin
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-07-15
+
+### Changed
+
+- 加固 npm OIDC 发布来源、Dist Tag 和版本不可覆盖门禁。
+- 修正 Registry 不可变版本地址与 npm 发布通道文档。
+
+## [0.1.0] - 2026-07-15
+
 ### Added
 
 - 首个 `@uekits/web` CLI、不可变 Registry、Playground 和源码升级工作流。

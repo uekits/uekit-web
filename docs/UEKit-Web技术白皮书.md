@@ -168,11 +168,11 @@ uekit-web/
 
 ```text
 /web/v1/index.json
-/web/v1/button.json
-/web/v1/pro-table.json
+/web/v1/items/button/0.1.0.json
+/web/v1/items/pro-table/0.1.0.json
 ```
 
-这种结构允许 CLI 单独获取需要的条目，也利于 CDN 缓存和独立校验。
+索引指向不可变的版本化条目资源。这种结构允许 CLI 单独获取需要的条目，也利于 CDN 缓存、历史版本保留和独立校验。
 
 ### 5.3 Playground
 

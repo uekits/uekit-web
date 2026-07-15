@@ -36,16 +36,26 @@ jobs:
               shell: bash
               run: |
                   set -euo pipefail
+                  DIST_TAG="${{ inputs.dist_tag }}"
+                  PACKAGE_VERSION="$(node -p "require('./packages/cli/package.json').version")"
+
                   if [[ "$GITHUB_REF" == "refs/heads/main" ]]; then
+                      if [[ "$DIST_TAG" == "latest" ]]; then
+                          echo "latest releases require a protected version tag." >&2
+                          exit 1
+                      fi
                       exit 0
                   fi
                   if [[ ! "$GITHUB_REF" =~ ^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
                       echo "npm releases are restricted to main or semantic version tags." >&2
                       exit 1
                   fi
-                  PACKAGE_VERSION="$(node -p "require('./packages/cli/package.json').version")"
                   if [[ "$GITHUB_REF" != "refs/tags/v${PACKAGE_VERSION}" ]]; then
                       echo "Tag ${GITHUB_REF#refs/tags/} does not match package version ${PACKAGE_VERSION}." >&2
+                      exit 1
+                  fi
+                  if [[ "$DIST_TAG" == "latest" && "$PACKAGE_VERSION" == *-* ]]; then
+                      echo "Prerelease versions cannot be published to latest." >&2
                       exit 1
                   fi
 
@@ -64,6 +74,30 @@ jobs:
 
             - name: Install pinned npm for OIDC trusted publishing
               run: npm install --global npm@11.18.0
+
+            - name: Require OIDC-only publishing
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  if [[ -n "${NODE_AUTH_TOKEN:-}" || -n "${NPM_TOKEN:-}" ]]; then
+                      echo "Traditional npm publish tokens are forbidden; use OIDC trusted publishing." >&2
+                      exit 1
+                  fi
+
+            - name: Ensure package version is unpublished
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  PACKAGE_VERSION="$(node -p "require('./packages/cli/package.json').version")"
+                  PACKAGE_SPEC="@uekits/web@${PACKAGE_VERSION}"
+                  if OUTPUT="$(npm view "$PACKAGE_SPEC" version 2>&1)"; then
+                      echo "${PACKAGE_SPEC} is already published and cannot be overwritten." >&2
+                      exit 1
+                  fi
+                  if ! grep -Eq 'E404|404 Not Found' <<<"$OUTPUT"; then
+                      echo "$OUTPUT" >&2
+                      exit 1
+                  fi
 
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
