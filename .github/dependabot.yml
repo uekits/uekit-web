@@ -23,3 +23,6 @@ updates:
           time: '03:15'
           timezone: Asia/Shanghai
       open-pull-requests-limit: 5
+      ignore:
+          - dependency-name: '*'
+            update-types: [version-update:semver-major]
