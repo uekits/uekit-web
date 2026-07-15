@@ -91,7 +91,6 @@ function normalizeLink(raw) {
 function headingSlug(value) {
     return value
         .toLowerCase()
-        .replace(/<[^>]+>/g, '')
         .replace(/[`*_~]/g, '')
         .replace(/[^\p{L}\p{N}\s_-]/gu, '')
         .trim()
