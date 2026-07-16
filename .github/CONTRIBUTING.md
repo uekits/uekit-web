@@ -29,9 +29,9 @@ pnpm smoke:package
 8. 日常提交至少执行与变更相关的检查；`dev → main` 发布 PR 必须通过完整自动化门禁。
 9. 发布 PR 合并开始后暂停向 `dev` Push，直到 Registry、npm 验证完成并将 `dev` 快进同步到 `main`。
 
-正式发布只能由受保护的 `v*` Tag 触发 OIDC 工作流；仓库不提供本地 npm 发布脚本。完整流程见 [npm 发布指南](./docs/releasing/npm发布指南.md)。
+正式发布只能由受保护的 `v*` Tag 触发 OIDC 工作流；仓库不提供本地 npm 发布脚本。完整流程见 [npm 发布指南](../docs/releasing/npm发布指南.md)。
 
-编码、注释和工程规则见[编码规范](./docs/standards/编码规范.md)、[注释规范](./docs/standards/注释规范.md)和[工程化规范](./docs/standards/工程化规范.md)。安全问题请按 [`SECURITY.md`](./SECURITY.md) 私下报告。
+编码、注释和工程规则见[编码规范](../docs/standards/编码规范.md)、[注释规范](../docs/standards/注释规范.md)和[工程化规范](../docs/standards/工程化规范.md)。安全问题请按 [`SECURITY.md`](./SECURITY.md) 私下报告。
 
 ## 提交与评审
 

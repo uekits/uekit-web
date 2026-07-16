@@ -16,6 +16,5 @@ apps/playground/src/styles/uekit.css
 apps/registry-server/public/r/
 apps/registry-server/public/web/
 registry-releases/
-THIRD_PARTY_LICENSES.md
 pnpm-lock.yaml
 *.min.*

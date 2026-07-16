@@ -96,6 +96,16 @@ docs/
 - [版本升级与回滚](./releasing/版本升级与回滚.md)
 - [Changelog](../CHANGELOG.md)
 
+## 法律与社区
+
+- [法律与第三方软件说明](./legal/README.md)
+- [第三方许可证清单](./legal/THIRD_PARTY_LICENSES.md)
+- [商标使用说明](./legal/TRADEMARKS.md)
+- [贡献指南](../.github/CONTRIBUTING.md)
+- [社区行为准则](../.github/CODE_OF_CONDUCT.md)
+- [支持说明](../.github/SUPPORT.md)
+- [安全策略](../.github/SECURITY.md)
+
 ## 文档维护原则
 
 - 默认使用中文说明；代码标识、协议字段和命令保持原文。

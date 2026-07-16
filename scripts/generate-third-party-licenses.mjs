@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const lockFile = path.join(root, 'pnpm-lock.yaml');
 const metadataFile = path.join(root, 'scripts/third-party-license-metadata.json');
-const outputFile = path.join(root, 'THIRD_PARTY_LICENSES.md');
+const outputFile = path.join(root, 'docs/legal/THIRD_PARTY_LICENSES.md');
 const check = process.argv.includes('--check');
 const registryBaseUrl = 'https://registry.npmjs.org';
 const fetchConcurrency = 12;
@@ -232,7 +232,9 @@ if (check) {
     }
 
     const current = await readFile(outputFile, 'utf8').catch(() => '');
-    if (current !== content) throw new Error('THIRD_PARTY_LICENSES.md 需要重新生成。');
+    if (current !== content) {
+        throw new Error('docs/legal/THIRD_PARTY_LICENSES.md 需要重新生成。');
+    }
     console.log(`第三方许可证清单验证通过：${dependencies.length} 个 package/version。`);
 } else {
     await writeFile(metadataFile, `${JSON.stringify(normalizedMetadata, null, 4)}\n`, 'utf8');

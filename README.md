@@ -192,10 +192,10 @@ pnpm check
 
 ## 参与贡献与支持
 
-- 提交代码前请阅读 [CONTRIBUTING.md](./CONTRIBUTING.md) 和 [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)；
-- 使用问题和兼容性问题请参考 [SUPPORT.md](./SUPPORT.md)；
-- 安全漏洞请按照 [SECURITY.md](./SECURITY.md) 私下报告，不要创建公开 Issue。
+- 提交代码前请阅读[贡献指南](./.github/CONTRIBUTING.md)和[社区行为准则](./.github/CODE_OF_CONDUCT.md)；
+- 使用问题和兼容性问题请参考[支持说明](./.github/SUPPORT.md)；
+- 安全漏洞请按照[安全策略](./.github/SECURITY.md)私下报告，不要创建公开 Issue。
 
 ## 许可证
 
-本项目采用 [MIT License](./LICENSE)。第三方依赖和商标使用说明见 [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md)、[THIRD_PARTY_LICENSES.md](./THIRD_PARTY_LICENSES.md) 与 [TRADEMARKS.md](./TRADEMARKS.md)。
+本项目采用 [MIT License](./LICENSE)。第三方依赖、许可证和商标使用边界见[法律与第三方软件说明](./docs/legal/README.md)。

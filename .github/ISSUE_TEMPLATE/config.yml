@@ -4,5 +4,5 @@ contact_links:
       url: https://github.com/uekits/uekit-web/security/advisories/new
       about: 请通过私有渠道报告安全漏洞。
     - name: 支持范围
-      url: https://github.com/uekits/uekit-web/blob/main/SUPPORT.md
+      url: https://github.com/uekits/uekit-web/blob/main/.github/SUPPORT.md
       about: 提交问题前请阅读支持范围。
