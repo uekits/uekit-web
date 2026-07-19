@@ -10,8 +10,8 @@ catalogs:
       specifier: ^1.0.1
       version: 1.0.1
     '@lucide/vue':
-      specifier: ^1.17.0
-      version: 1.24.0
+      specifier: ^1.25.0
+      version: 1.25.0
     '@tailwindcss/vite':
       specifier: ^4.3.0
       version: 4.3.2
@@ -46,7 +46,7 @@ importers:
         version: 10.0.1(eslint@10.6.0(jiti@2.7.0))
       '@lucide/vue':
         specifier: 'catalog:'
-        version: 1.24.0(vue@3.5.39(typescript@6.0.3))
+        version: 1.25.0(vue@3.5.39(typescript@6.0.3))
       '@playwright/test':
         specifier: ^1.57.0
         version: 1.61.1
@@ -139,7 +139,7 @@ importers:
         version: 1.0.1
       '@lucide/vue':
         specifier: 'catalog:'
-        version: 1.24.0(vue@3.5.39(typescript@6.0.3))
+        version: 1.25.0(vue@3.5.39(typescript@6.0.3))
       echarts:
         specifier: 'catalog:'
         version: 6.1.0
@@ -195,7 +195,7 @@ importers:
         version: 1.0.1
       '@lucide/vue':
         specifier: 'catalog:'
-        version: 1.24.0(vue@3.5.39(typescript@6.0.3))
+        version: 1.25.0(vue@3.5.39(typescript@6.0.3))
       echarts:
         specifier: 'catalog:'
         version: 6.1.0
@@ -465,8 +465,8 @@ packages:
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
 
-  '@lucide/vue@1.24.0':
-    resolution: {integrity: sha512-5bNPX0G2YEWdUlBYk7pE8SgDg/f1mkIFpJ9vtE44pW/cwRz7Ioc0tOTESoVJAPvxIELSmYekX+XXIJMjsswNIg==}
+  '@lucide/vue@1.25.0':
+    resolution: {integrity: sha512-hkEetV+v48ScIn3uwqwWQ66sI8foeP2q6OMI09GzLFH4SfvBlfe3JHYlMBdBCqFC7WRlhFsndyDn/awRKRc2OQ==}
     peerDependencies:
       vue: '>=3.0.1'
 
@@ -3000,7 +3000,7 @@ snapshots:
 
   '@keyv/serialize@1.1.1': {}
 
-  '@lucide/vue@1.24.0(vue@3.5.39(typescript@6.0.3))':
+  '@lucide/vue@1.25.0(vue@3.5.39(typescript@6.0.3))':
     dependencies:
       vue: 3.5.39(typescript@6.0.3)
 
