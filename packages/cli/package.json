@@ -42,9 +42,9 @@
         "semver": "^7.7.3"
     },
     "devDependencies": {
-        "@types/node": "^22.0.0",
+        "@types/node": "^22.20.3",
         "@types/npm-package-arg": "^6.1.4",
-        "@types/semver": "^7.7.1",
+        "@types/semver": "^7.8.0",
         "typescript": "^6.0.3"
     },
     "engines": {
